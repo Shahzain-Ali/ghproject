@@ -1,4 +1,5 @@
 import type { Config } from "tailwindcss";
+import { fontFamily } from "tailwindcss/defaultTheme";
 
 export default {
   content: [
@@ -8,6 +9,9 @@ export default {
   ],
   theme: {
     extend: {
+      fontFamily: {
+        sans: ["Josefin Sans", ...fontFamily.sans], // Custom font add
+      },
       colors: {
         background: "var(--background)",
         foreground: "var(--foreground)",
