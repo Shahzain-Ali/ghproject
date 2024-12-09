@@ -1,8 +1,6 @@
 import React from "react";
 
 
-
-
 const TopCategories = () => {
     
   return (
@@ -69,6 +67,13 @@ const TopCategories = () => {
         <img src="/Group_161.png" alt="" className="w-[100%] pb-6" />
         <img src="image 1174 (1).png" alt="" className="w-[600px] mx-auto" />
       </div>
+
+      <section className="w-auto mb-6">
+            <img src="/Group _62.png" alt="" className="w-[100%]"/>
+      </section>
+      <section className="w-auto">
+        <img src="/Group_124 (2).png" alt="" className="w-[50%] mx-auto" />
+      </section>
      
     </div>
   );

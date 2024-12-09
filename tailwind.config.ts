@@ -9,6 +9,13 @@ export default {
   ],
   theme: {
     extend: {
+      screens:{
+        customsm: {min: '200px', max: '440px'},
+        smm: {min: '440px', max: '640px'},
+        sm: {min: '640px', max: '768px'},
+        md: {min: '768px',max : '1024px' },
+        lg: {min: '1024px',max : '1280px' },
+      },
       fontFamily: {
         sans: ["Josefin Sans", ...fontFamily.sans], // Custom font add
       },

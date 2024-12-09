@@ -70,7 +70,7 @@ function Footer() {
         </h2>
         <nav className="list-none mb-10">
           <li>
-            <a className="text-gray-600 hover:text-gray-800">My Account</a>
+            <a className="text-gray-600 hover:text-gray-800" href='/myaccount'>My Account</a>
           </li>
           <li>
             <a className="text-gray-600 hover:text-gray-800">Discount</a>

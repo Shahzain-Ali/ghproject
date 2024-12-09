@@ -10,7 +10,7 @@ export default function ContactPage() {
   return (
     <div>
       {/* Page Header */}
-      <div className="h-[286px] bg-[#F6F5FF] flex items-center py-16">
+      <div className="h-[200px] bg-[#F6F5FF] flex items-center py-16">
         <div className="container md:w-[1170px] mx-auto px-4">
           <h1 className="text-3xl text-center md:text-left font-bold mb-4 md:ml-20">Contact Us</h1>
           <div className="flex justify-center md:justify-start items-center gap-2 text-sm md:ml-20">
@@ -79,16 +79,16 @@ export default function ContactPage() {
           </div>
 
           {/* Right Side: Contact Way and Image */}
-          <div className="w-full md:w-1/2 max-w-xl">
+          <div className="w-full md:w-[30%] max-w-xl">
             <div className="mb-12">
               <h2 className="text-2xl font-bold text-[#151875] mb-6">Contact Way</h2>
               <div className="grid gap-6 sm:grid-cols-2">
-                <img src="Group 100.png" alt="Contact information" className="w-full" />
+                <img src="/Group_124 (8).png" alt="Contact information" className="w-full" />
               </div>
             </div>
 
             <div className="relative">
-              <img src="/Group 124.png" alt="Contact illustration" className="w-full" />
+              <img src="/Group_124 (1).png" alt="Contact illustration" className="w-full" />
             </div>
           </div>
         </div>
