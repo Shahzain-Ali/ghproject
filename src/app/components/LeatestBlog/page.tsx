@@ -34,7 +34,7 @@ function LatestBlog() {
   return (
     <section className="max-w-7xl mx-auto px-4 py-12 bg-white">
       <h1 className="text-center text-3xl font-bold text-blue-900 mb-8">Latest Blog</h1>
-      <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6">
+      <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-3 xlg:grid-cols-3 gap-6 ">
         {blogPosts.map((post) => (
           <div
             key={post.id}
