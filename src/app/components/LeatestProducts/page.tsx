@@ -11,7 +11,7 @@ const LeatestProducts = () => {
           </h2>
         <div className="w-auto  text-center">
           <ul className="flex  space-x-3 text-sm text-gray-500 mb-6  mx-auto w-auto justify-center text-center">
-            <li className=" hover:text-[#FB2E86] hover:border hover:border-b-[#FB2E86] ">New Arrival</li>
+            <li className=" hover:text-[#FB2E86] hover:border-b hover:border-b-[#FB2E86] ">New Arrival</li>
             <li className="">Best Seller</li>
             <li className="">Featured</li>
             <li className="">Offer</li>
