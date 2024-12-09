@@ -29,15 +29,6 @@ const slides = [
 function MainSection() {
   const [currentSlide, setCurrentSlide] = useState(0);
 
-  const handleNextSlide = () => {
-    setCurrentSlide((prevSlide) => (prevSlide + 1) % slides.length);
-  };
-
-  const handlePrevSlide = () => {
-    setCurrentSlide((prevSlide) =>
-      prevSlide === 0 ? slides.length - 1 : prevSlide - 1
-    );
-  };
 
   const current = slides[currentSlide];
 
