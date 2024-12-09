@@ -14,7 +14,7 @@ function Navbar() {
     <main className="border-b-2 bg-neutral-100">
       <div className="w-full flex items-center justify-center bg-white h-[70px]">
         {/* all content */}
-        <div className="sm:w-full md:w-[80%] flex items-center justify-between h-[50px] px-4">
+        <div className="sm:w-full md:w-[89%] flex items-center justify-between h-[50px] px-4">
 
           <div>
             {/* logo */}
@@ -53,7 +53,7 @@ function Navbar() {
 
           <div className="flex gap-x-4 items-center">
   {/* Search bar visible on all screens */}
-  <div className="w-[200px] flex justify-between items-center relative">
+  <div className="w-[200px] md:w-[160px] flex justify-between items-center relative  ">
   <label htmlFor="search" className="bg-[#F5F5F5] inline-block pl-[8px] text-left rounded-[3px] w-full">
     <input type="text"  className="bg-[#F5F5F5] text-[10px] outline-none w-full" id="search" />
     <span className="bg-[#FB2E86]  absolute right-0 top-0 bottom-0 flex items-center px-2">
