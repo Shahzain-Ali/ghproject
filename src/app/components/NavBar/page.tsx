@@ -60,7 +60,7 @@ function Navbar() {
           <div
             className={`${
               open ? "translate-x-0" : "-translate-x-full"
-            } md:flex md:translate-x-0 md:static w-[50%] border-2  md:w-auto bg-white/90 md:bg-transparent absolute top-0 left-[-58px] smm:left-[-140px] smm:w-[60%] smm:text-right customsm:text-center sm:text-center lg:text-center h-screen md:h-auto z-40 transition-transform duration-500 ease-in-out`}
+            } md:flex md:translate-x-0 md:static w-[50%] border-2  md:w-auto bg-white/90 md:bg-transparent absolute top-0 left-[-58px] smm:left-[-140px] smm:w-[60%] smm:text-right customsm:text-center sm:text-center lg:text-center h-screen md:h-auto z-40Add transition-transform duration-500 ease-in-out`}
           >
             <ul className="flex flex-col md:flex-row md:gap-x-2 lg:gap-x-5 xl:gap-x-5 2xl:gap-x-10 sm:text-md md:text-sm lg:text-md xl:text-md text-black">
               {[
