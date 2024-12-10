@@ -64,7 +64,7 @@ function Navbar() {
           >
             <ul className="flex flex-col md:flex-row md:gap-x-2 lg:gap-x-5 xl:gap-x-5 2xl:gap-x-10 sm:text-md md:text-sm lg:text-md xl:text-md text-black">
               {[
-                { href: "/", label: "Home" },
+                { href: "/home", label: "Home" },
                 { href: "/about", label: "Pages" },
                 { href: "/product", label: "Products" },
                 { href: "/blog", label: "Blog" },
