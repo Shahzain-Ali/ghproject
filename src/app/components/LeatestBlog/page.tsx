@@ -1,6 +1,6 @@
 import React from "react";
 
-function LatestBlog() {
+function LeatestBlog() {
   const blogPosts = [
     {
       id: 1,
@@ -63,4 +63,4 @@ function LatestBlog() {
   );
 }
 
-export default LatestBlog;
+export default LeatestBlog;
