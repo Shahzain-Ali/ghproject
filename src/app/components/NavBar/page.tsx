@@ -46,7 +46,7 @@ function Navbar() {
   return (
     <main className="border-b-2 bg-neutral-100" ref={navRef}>
       <div className="w-full flex items-center justify-center bg-white h-[70px]">
-        <div className="sm:w-full md:w-[89%] flex items-center justify-between h-[50px] px-4 relative">
+        <div className="sm:w-full md:w-[89%] lg:w-[89%] flex items-center justify-between h-[50px] px-4 relative border-2">
           {/* Hamburger Menu Button */}
        
 

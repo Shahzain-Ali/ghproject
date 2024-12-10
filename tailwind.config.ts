@@ -14,8 +14,8 @@ export default {
         smm: {min: '440px', max: '640px'},
         sm: {min: '640px', max: '768px'},
         md: {min: '768px',max : '1024px' },
-        lg: {min: '1024px',max : '1280px' },
-        xlg: {min: '1280px',max : '1440px' },
+        lg: {min: '1024px',max : '1300px' },
+        xlg: {min: '1300px',max : '1440px' },
       },
       fontFamily: {
         sans: ["Josefin Sans", ...fontFamily.sans], // Custom font add
