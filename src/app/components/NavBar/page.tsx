@@ -73,7 +73,7 @@ function Navbar() {
               ].map((link) => (
                 <li 
                   key={link.href}
-                  className="p-4 hover:underline hover:text-pink-600 underline-offset-2"
+                  className="p-4 hover:underline hover:text-pink-600 underline-offset-2  w-[20%] mx-auto"
                 >
                   <Link href={link.href}>{link.label}</Link>
                 </li>

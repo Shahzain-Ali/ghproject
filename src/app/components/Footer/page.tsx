@@ -130,17 +130,17 @@ function Footer() {
       </p>
       <span className="inline-flex sm:ml-auto sm:mt-0 mt-4 justify-center sm:justify-start">
       <Link 
-      target='blank' href={"https://github.com/SaimaAmjad786"} className="text-gray-900">
+      target='blank' href={"https://github.com"} className="text-gray-900">
       <FaGithub className='text-3xl ' />
       </Link>
 
       <Link
-      target='blank' href={"https://vercel.com/new/saima-amjads-projects"} className="ml-3 text-gray-900">
+      target='blank' href={"https://vercel.com/new"} className="ml-3 text-gray-900">
       <IoLogoVercel className='text-3xl' />
       </Link>
       
       <Link
-      target='blank' href={"https://www.linkedin.com/in/saima-amjad-2263012b6/"} className="ml-3 text-gray-900">
+      target='blank' href={"https://www.linkedin.com"} className="ml-3 text-gray-900">
         <FaLinkedin className='text-3xl ' />
       </Link>
     </span>
