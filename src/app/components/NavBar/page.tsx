@@ -44,8 +44,8 @@ function Navbar() {
   }, [pathname]);
 
   return (
-    <main className="border-b-2 bg-neutral-100" ref={navRef}>
-      <div className="w-full flex items-center justify-center bg-[#F6F5FF] h-[70px]">
+    <main className="border-b-2 " ref={navRef}>
+      <div className="w-full flex items-center justify-center  h-[70px]">
         <div className="sm:w-full md:w-[89%] lg:w-[89%] flex items-center justify-between h-[50px] px-4 relative">
           {/* Hamburger Menu Button */}
        

@@ -56,7 +56,7 @@ const Header = () => {
           </div>
 
           {/* Shopping Cart */}
-          <LuShoppingCart className="w-6 h-6 customsm:w-4" />
+          <a href="./shoppingCurt" className="cursor-pointer"><LuShoppingCart className="w-6 h-6 customsm:w-4" /></a>
         </div>
       </div>
     </div>
