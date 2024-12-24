@@ -2,15 +2,17 @@
 import React from 'react'
 import Link from 'next/link'
 import { useState } from 'react'
+import Image from 'next/image'
 
 const ShoppingCart = () => {
-    const [counts, setCounts] = useState(Array(5).fill(0))
+    const [counts, setCounts] = useState<number[]>(Array(5).fill(0));
 
-    const updateCount = (index:any, increment:any) => {
-        const newCounts = [...counts]
-        newCounts[index] = Math.max(0, newCounts[index] + increment)
-        setCounts(newCounts)
-    }
+    const updateCount = (index: number, increment: number) => {
+        const newCounts = [...counts];
+        newCounts[index] = Math.max(0, newCounts[index] + increment);
+        setCounts(newCounts);
+    };
+    
 
     return (
         <div className="w-full">
@@ -50,7 +52,7 @@ const ShoppingCart = () => {
                                     <div key={index} className="grid grid-cols-4  pb-2 bg-white rounded-lg shadow-sm items-center">
                                         {/* Product */}
                                         <div className="col-span-1 flex md:flex-col gap-2 md:gap-4">
-                                            <img 
+                                            <Image
                                                 src={`/Rectangle_${34 + index}.png`} 
                                                 alt="" 
                                                 className="w-12 h-12 md:w-20 md:h-20 lg:w-24 lg:h-24 object-cover"

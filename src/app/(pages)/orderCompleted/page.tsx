@@ -1,5 +1,6 @@
 import React from 'react'
 import Link from 'next/link'
+import Image from 'next/image'
 
 
 const OrderCompleted = () => {
@@ -24,8 +25,8 @@ const OrderCompleted = () => {
           <div className=' h-[400px] w-[80%] flex flex-col justify-center'>
              <div className='border-l-2 border-b-2 border-dotted border-[#D2D1D1] text-center w-[80%] mx-auto  '>
                 <div className=' flex '>
-                <img src="/clock_1.png" alt="" className='w-[70px] h-[70px] mx-[-35px] ' />
-                    <img src="/Vector_15.png" alt="" className='mx-auto w-[50px] h-[50px] ' />
+                <Image src="/clock_1.png" alt="" className='w-[70px] h-[70px] mx-[-35px] ' />
+                    <Image src="/Vector_15.png" alt="" className='mx-auto w-[50px] h-[50px] ' />
                 </div>
                 <h1 className="text-3xl customsm:text-[18px] smm:text-[20px]  md:text-left font-bold mb-4 md:ml-20 mt-4">
                 Your Order Is Completed! 
@@ -39,7 +40,7 @@ const OrderCompleted = () => {
              </div>
             </div>
             <div>
-                <img src="/Group_124 (2).png" alt="" />
+                <Image src="/Group_124 (2).png" alt="" />
             </div>
         </section>
     </div>
