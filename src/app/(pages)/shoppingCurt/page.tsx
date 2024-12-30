@@ -33,7 +33,7 @@ const ShoppingCart = () => {
             </div>
 
             {/* Main Cart Section */}
-            <section className='py-4 md:py-8'>
+            <section className='py-4 md:py-8 my-12'>
                 <div className="customsm:w-[95%] smm:w-[85%] sm:w-[80%] md:w-[90%] lg:w-[80%] max-w-[1400px] mx-auto justify-between">
                     <div className="flex flex-col lg:flex-row md:flex-row gap-4 ">
                         {/* Main Cart Table */}
@@ -55,6 +55,8 @@ const ShoppingCart = () => {
                                             <Image
                                                 src={`/Rectangle_${34 + index}.png`} 
                                                 alt="" 
+                                                width={20}
+                                                height={24}
                                                 className="w-12 h-12 md:w-20 md:h-20 lg:w-24 lg:h-24 object-cover"
                                             />
                                             <div className="customsm:block smm:block sm:block md:block lg:block ">

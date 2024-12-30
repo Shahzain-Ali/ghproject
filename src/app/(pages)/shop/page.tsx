@@ -51,6 +51,7 @@ const Shop = () => {
              </div>
             </div>
         </section>
+        
 
         <section>
             {/* ########### First Picture Details */}

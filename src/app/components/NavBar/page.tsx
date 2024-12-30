@@ -42,6 +42,7 @@ function Navbar() {
   useEffect(() => {
     setOpen(false);
   }, [pathname]);
+  // const [isOpen, setIsOpen] = useState(false);
 
   return (
     <main className="border-b-2 " ref={navRef}>
@@ -55,31 +56,70 @@ function Navbar() {
               Hekto
             </h2>
           </div>
-
-          {/* Navigation Menu */}
+{/* Navigation menu */}
           <div
-            className={`${
-              open ? "translate-x-0" : "-translate-x-full"
-            } md:flex md:translate-x-0 md:static w-[50%] md:w-auto bg-white/90 md:bg-transparent absolute top-0 left-[-58px] smm:left-[-140px] smm:w-[60%] smm:text-right customsm:text-center sm:text-center lg:text-center h-screen md:h-auto z-40 transition-transform duration-500 ease-in-out`}
+      className={`${
+        open ? "translate-x-0" : "-translate-x-full"
+      } md:flex md:translate-x-0 md:static w-[20%] md:w-auto bg-white/90 md:bg-transparent absolute top-0 right-0  sm:left-[-10px] md:left-[-60px] lg:left-[-78px] smm:left-[-150px] smm:w-[60%] customsm:left-[-50px] customsm:w-[50%] smm:text-center customsm:text-center sm:text-center lg:text-center h-screen md:h-auto z-40 transition-transform duration-500 ease-in-out`}
+    >
+      <ul className="flex flex-col md:flex-row md:gap-x-2 lg:gap-x-5 xl:gap-x-5 2xl:gap-x-10 sm:text-md md:text-sm lg:text-md xl:text-md text-black">
+        {[
+          {
+            href: "/home",
+            label: "Home",
+            dropdown: [
+              { label: "Hekto Demo", href: "/demopage" },
+              { label: "Trending Products", href: "/trendingproduct" },
+              { label: "Grid Default", href: "/griddefault" },
+              { label: "FAQ", href: "/faq" },
+            ],
+          },
+          { href: "/about", label: "Pages" },
+          { href: "/product", label: "Products" },
+          { href: "/blog", label: "Blog" },
+          { href: "/shop", label: "Shop" },
+          { href: "/contact", label: "Contact" },
+        ].map((link) => (
+          <li 
+            key={link.href}
+            className="relative group p-4 hover:underline hover:text-pink-600 underline-offset-2 w-full md:w-auto mx-auto"
           >
-            <ul className="flex flex-col md:flex-row md:gap-x-2 lg:gap-x-5 xl:gap-x-5 2xl:gap-x-10 sm:text-md md:text-sm lg:text-md xl:text-md text-black">
-              {[
-                { href: "/home", label: "Home" },
-                { href: "/about", label: "Pages" },
-                { href: "/product", label: "Products" },
-                { href: "/blog", label: "Blog" },
-                { href: "/shop", label: "Shop" },
-                { href: "/contact", label: "Contact" }
-              ].map((link) => (
-                <li 
-                  key={link.href}
-                  className="p-4 hover:underline hover:text-pink-600 underline-offset-2  w-[20%] mx-auto"
-                >
-                  <Link href={link.href}>{link.label}</Link>
-                </li>
-              ))}
-            </ul>
-          </div>
+            <div className="flex items-center customsm:w-[70px] lg:w-[70px] lg:ml-[50px]  customsm:ml-[50px] smm:w-[70px] smm:ml-[90px]">
+              <Link href={link.href}>
+                {link.label}
+              </Link>
+
+              {/* Add Dropdown Icon */}
+              {link.dropdown && (
+                <span className="ml-2">
+                  <i className="fa-solid fa-caret-down hidden md:block"></i>
+                  <i className="fa-solid fa-caret-right hidden lg:block smm:block sm:block customsm:block"></i>
+                </span>
+              )}
+            </div>
+
+            {/* Dropdown Menu */}
+            {link.dropdown && (
+              <ul className="absolute customsm:right-[-72%] lg:left-[65%] smm:right-[-65%] md:top-10  bg-opacity-60 sm:landscape:right-[-70%] sm:right-[-20%] right-[55%] md:left-0 top-[0px] hidden group-hover:block bg-white shadow-lg mt-2 rounded-md w-40 z-50">
+                {link.dropdown.map((item) => (
+                  <li
+                    key={item.href}
+                    className="p-2 hover:bg-pink-600 hover:text-white cursor-pointer"
+                  >
+                    <Link href={item.href}>
+                      {item.label}
+                    </Link>
+                  </li>
+                ))}
+              </ul>
+            )}
+          </li>
+        ))}
+      </ul>
+    </div>
+
+
+
      
           <div className="flex gap-x-4 items-center">
   {/* Search bar visible on all screens */}

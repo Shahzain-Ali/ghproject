@@ -73,7 +73,7 @@ function Footer() {
             <a className="text-gray-600 hover:text-gray-800" href='/myaccount'>My Account</a>
           </li>
           <li>
-            <a className="text-gray-600 hover:text-gray-800">Discount</a>
+            <a href="./demopage" className="text-gray-600 hover:text-gray-800 cursor-pointer">Discount</a>
           </li>
           <li>
             <a className="text-gray-600 hover:text-gray-800">Returns</a>
