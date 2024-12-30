@@ -72,6 +72,7 @@ function Navbar() {
               { label: "Trending Products", href: "/trendingproduct" },
               { label: "Grid Default", href: "/griddefault" },
               { label: "FAQ", href: "/faq" },
+              { label: "Refund Product", href: "/refundableproduct" },
             ],
           },
           { href: "/about", label: "Pages" },
