@@ -93,8 +93,8 @@ function Navbar() {
               {/* Add Dropdown Icon */}
               {link.dropdown && (
                 <span className="ml-2">
-                  <i className="fa-solid fa-caret-down hidden md:block"></i>
-                  <i className="fa-solid fa-caret-right hidden lg:block smm:block sm:block customsm:block"></i>
+                  <i className="fa-solid fa-caret-down hidden md:block lg:hidden"></i>
+                  <i className="fa-solid fa-caret-right hidden md:hidden lg:block smm:block sm:block customsm:block"></i>
                 </span>
               )}
             </div>
