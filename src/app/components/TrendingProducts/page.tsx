@@ -117,7 +117,7 @@ const TrendingProducts = () => {
   return (
     <div className="container mx-auto px-4">
       <div className="flex justify-between items-center mb-6">
-        <h2 className="text-2xl font-bold">Featured Products</h2>
+        <h2 className="text-2xl font-bold">Trending Products</h2>
         <button
           onClick={() => selectedProducts.length === 2 && setIsCompareModalOpen(true)}
           disabled={selectedProducts.length !== 2}
