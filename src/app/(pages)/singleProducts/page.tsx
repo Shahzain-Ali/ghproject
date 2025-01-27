@@ -1,6 +1,6 @@
 import React from 'react';
 
-const Product = () => {
+const ProductPage = () => {
   return (
     <div className="mt-6 mb-14">
       {/* Main container for grid layout */}
@@ -107,4 +107,4 @@ const Product = () => {
   );
 };
 
-export default Product;
+export default ProductPage;

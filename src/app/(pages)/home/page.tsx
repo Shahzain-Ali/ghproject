@@ -11,7 +11,7 @@ import DiscountItem from '@/app/components/DiscountItems/page';
 import TopCategories from '@/app/components/TopCategories/page';
 import LeatestBlog from '@/app/components/LeatestBlog/page';
 import ShopexOffer from '@/app/components/ShopexOffer/page';
-import LeatestProducts from '@/app/components/LeatestProducts/page';
+import LeatestProducts from '@/app/components/LatestProducts/page';
 import Trending from '@/app/components/Trending.tsx/page';
 
 const Home = () => {

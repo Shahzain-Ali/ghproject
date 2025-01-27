@@ -1,10 +1,11 @@
 import type { Metadata } from "next";
 import localFont from "next/font/local";
 import { Josefin_Sans } from "next/font/google";
-import Header from "./components/Header/page";
-import Footer from "./components/Footer/page";
+// import Header from "./components/Header/page";
+// import Footer from "./components/Footer/page";
 import "./globals.css";
-import Navbar from "./components/NavBar/page";
+// import Navbar from "./components/NavBar/page";
+import MainLayout from "./MainLayout";
 
 // import ShopexOffers from "./components/ShopexOffer.tsx/page";
 
@@ -37,11 +38,10 @@ export default function RootLayout({
       <body
         className={`${geistSans.variable} ${geistMono.variable} antialiased ${josefin_Sans.className}`}
       >
-        <Header/>
-        <Navbar/>
+        <MainLayout>
         {children}
   
-        <Footer/>
+        </MainLayout>
       </body>
     </html>
   );

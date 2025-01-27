@@ -68,7 +68,6 @@ function Navbar() {
             href: "/home",
             label: "Home",
             dropdown: [
-              { label: "Hekto Demo", href: "/demopage" },
               { label: "Trending Products", href: "/trendingproduct" },
               { label: "Grid Default", href: "/griddefault" },
               { label: "FAQ", href: "/faq" },
@@ -91,12 +90,6 @@ function Navbar() {
               </Link>
 
               {/* Add Dropdown Icon */}
-              {link.dropdown && (
-                <span className="ml-2">
-                  <i className="fa-solid fa-caret-down hidden md:block lg:hidden"></i>
-                  <i className="fa-solid fa-caret-right hidden md:hidden lg:block smm:block sm:block customsm:block"></i>
-                </span>
-              )}
             </div>
 
             {/* Dropdown Menu */}
