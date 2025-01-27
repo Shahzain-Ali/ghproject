@@ -1,4 +1,5 @@
 import React from "react";
+import Image from "next/image";
 
 function LeatestBlog() {
   const blogPosts = [
@@ -41,10 +42,12 @@ function LeatestBlog() {
             className="bg-white rounded-md shadow-md p-4"
             style={{ width: "100%", height: "auto" }}
           >
-            <img
+            <Image
               src={post.imgSrc}
               alt={post.title}
               className="h-40 w-full object-cover rounded-md"
+              width={50}
+              height={50}
             />
             <div className="mt-4">
               <div className="text-sm text-gray-500 flex items-center gap-2">

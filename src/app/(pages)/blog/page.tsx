@@ -1,5 +1,6 @@
 import React from 'react';
 import Link from 'next/link';
+import Image from 'next/image';
 
 const Blog = () => {
   return (
@@ -26,11 +27,13 @@ const Blog = () => {
           <div className="lg:col-span-3">
             {/* <!-- Post 1 --> */}
             <div className="mb-8 border-b pb-4">
-              <img
-                src="/bruce-mars-FWVMhUa_wbY-unsplash 2 (1).png"
-                alt="Post Image"
-                className="w-full h-60 object-cover rounded-md"
-              />
+            <Image
+              src="/bruce-mars-FWVMhUa_wbY-unsplash 2 (1).png"
+              alt="Post Image"
+              width={500} // Specify the width of the image
+              height={240} // Specify the height of the image
+              className="w-full h-60 object-cover rounded-md"
+            />
               <div className="mt-4 flex items-center justify-between">
                 <p className="text-purple-600">Self Author</p>
                 <p className="text-gray-500 text-sm bg-[#FFA454] p-1 rounded-sm">Aug 29 2023</p>
@@ -51,11 +54,14 @@ const Blog = () => {
 
             {/* <!-- Post 2 --> */}
             <div className="mb-8 border-b pb-4">
-              <img
-                src="/bruce-mars-FWVMhUa_wbY-unsplash 3 (1).png"
-                alt="Post Image"
-                className="w-full h-60 object-cover rounded-md"
-              />
+            <Image
+              src="/bruce-mars-FWVMhUa_wbY-unsplash 3 (1).png"
+              alt="Post Image"
+              width={500} // Specify the width of the image
+              height={240} // Specify the height of the image
+              className="w-full h-60 object-cover rounded-md"
+            />
+              
               <div className="mt-4 flex items-center justify-between">
                 <p className="text-purple-600">Self Author</p>
                 <p className="text-gray-500 text-sm bg-[#FFA454] p-1 rounded-sm">Aug 29 2023</p>
@@ -76,11 +82,14 @@ const Blog = () => {
 
             {/* <!-- Post 3 --> */}
             <div className="mb-8 border-b pb-4">
-              <img
-                src="/bruce-mars-FWVMhUa_wbY-unsplash 4 (1).png"
-                alt="Post Image"
-                className="w-full h-60 object-cover rounded-md"
-              />
+            <Image
+              src="/bruce-mars-FWVMhUa_wbY-unsplash 4 (1).png"
+              alt="Post Image"
+              width={500} // Specify the width of the image
+              height={240} // Specify the height of the image
+              className="w-full h-60 object-cover rounded-md"
+            />
+              
               <div className="mt-4 flex items-center justify-between">
                 <p className="text-purple-600">Self Author</p>
                 <p className="text-gray-500 text-sm bg-[#FFA454] p-1 rounded-sm">Aug 29 2023</p>
@@ -119,19 +128,34 @@ const Blog = () => {
             <div className="mb-8">
               <h3 className="font-bold text-lg mb-4">Categories</h3>
               <div className='mb-2'>
-                <img src="/Group_223.png" alt="" />
+                <Image 
+                src="/Group_223.png"
+                alt=""
+                >
+
+                </Image>
               </div>
             
                 {/* <!-- Recent Posts --> */}
 
               <h3 className="font-bold text-lg mb-4">Recent Post</h3>
               <div className='mb-2'>
-                <img src="/Group_222.png" alt="" />
+              <Image 
+                src="/Group_222.png"
+                alt=""
+                >
+                </Image>
               </div>
+              
               <h3 className="font-bold text-lg mb-4">Sale Product</h3>
               <div className='mb-2'>
-                <img src="/Group_221.png" alt="" />
+              <Image 
+                src="/Group_221.png"
+                alt=""
+                >
+                </Image>
               </div>
+            
 
                {/* <!-- Offer Product --> */}
 
@@ -139,7 +163,12 @@ const Blog = () => {
 
               <h3 className="font-bold text-lg mb-4">Offer Product</h3>
               <div className='my-2'>
-                <img src="/Group_225.png" alt="" />
+              <Image 
+                src="Group_225.png"
+                alt=""
+                >
+                </Image>
+                
               </div>
             </div>
 

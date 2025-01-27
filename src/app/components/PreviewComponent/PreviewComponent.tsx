@@ -2,7 +2,6 @@
 import { useState, useEffect } from "react";
 import { Star, MessageCircle } from 'lucide-react';
 import { client } from "@/sanity/lib/client";
-import { Product } from "@/app/types/Product";
 import { groq } from "next-sanity";
 
 interface Review {

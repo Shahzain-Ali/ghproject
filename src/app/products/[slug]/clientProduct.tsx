@@ -60,7 +60,6 @@ const ProductClient: React.FC<ProductClientProps> = ({ product }) => {
       payload: {
         ...product,
         quantity: quantity,
-        totalPrice: totalPrice
       }
     });
   };

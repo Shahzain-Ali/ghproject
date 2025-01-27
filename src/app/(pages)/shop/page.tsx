@@ -2,7 +2,7 @@ import React from 'react'
 import Link from 'next/link'
 import {  FaRegHeart } from "react-icons/fa6";
 import { LuShoppingCart } from "react-icons/lu";
-
+import Image from 'next/image';
 const Shop = () => {
     
   return (
@@ -58,7 +58,7 @@ const Shop = () => {
 
             <div className='flex justify-between w-[80%] mx-auto py-3' >
                 <div className='w-[50%]  '>
-                    <img src="/Rectangle_32.png" alt="" className='mx-auto' />
+                    <Image src="/Rectangle_32.png" alt="" className='mx-auto' />
                 </div>
                 <div className='w-[50%]  flex flex-col gap-3  pt-5'>
                     <div className='flex place-items-center gap-x-4'>
@@ -73,7 +73,7 @@ const Shop = () => {
                         <p className='text-[14px]'>
                         $26.00 <span className='text-[#FF2AAA]'>$52.00</span>
                         </p>
-                        <img src="/Group_236.png" alt="" className='w-[50px] h-[16px] '/>
+                        <Image src="/Group_236.png" alt="" className='w-[50px] h-[16px] '/>
                     </div>
                     <p className='text-[#9295AA] text-[14px]'>
                          Lorem ipsum dolor sit amet, consectetur adipiscing elit. Magna in est adipiscing in phasellus non in justo.
@@ -90,7 +90,7 @@ const Shop = () => {
 
             <div className='flex justify-between w-[80%] mx-auto py-3' >
                 <div className='w-[50%]  '>
-                    <img src="/Rectangle_32 (1).png" alt="" className='mx-auto' />
+                    <Image src="/Rectangle_32 (1).png" alt="" className='mx-auto' />
                 </div>
                 <div className='w-[50%]  flex flex-col gap-3  pt-5'>
                     <div className='flex place-items-center gap-x-4'>
@@ -105,7 +105,7 @@ const Shop = () => {
                         <p className='text-[14px]'>
                         $26.00 <span className='text-[#FF2AAA]'>$52.00</span>
                         </p>
-                        <img src="/Group_236.png" alt="" className='w-[50px] h-[16px] '/>
+                        <Image src="/Group_236.png" alt="" className='w-[50px] h-[16px] '/>
                     </div>
                     <p className='text-[#9295AA] text-[14px]'>
                          Lorem ipsum dolor sit amet, consectetur adipiscing elit. Magna in est adipiscing in phasellus non in justo.
@@ -124,7 +124,7 @@ const Shop = () => {
 
             <div className='flex justify-between w-[80%] mx-auto py-3' >
                 <div className='w-[50%]  '>
-                    <img src="/Rectangle_32 (2).png" alt="" className='mx-auto' />
+                    <Image src="/Rectangle_32 (2).png" alt="" className='mx-auto' />
                 </div>
                 <div className='w-[50%]  flex flex-col gap-3  pt-5'>
                     <div className='flex place-items-center gap-x-4'>
@@ -139,7 +139,7 @@ const Shop = () => {
                         <p className='text-[14px]'>
                         $26.00 <span className='text-[#FF2AAA]'>$52.00</span>
                         </p>
-                        <img src="/Group_236.png" alt="" className='w-[50px] h-[16px] '/>
+                        <Image src="/Group_236.png" alt="" className='w-[50px] h-[16px] '/>
                     </div>
                     <p className='text-[#9295AA] text-[14px]'>
                          Lorem ipsum dolor sit amet, consectetur adipiscing elit. Magna in est adipiscing in phasellus non in justo.
@@ -157,7 +157,7 @@ const Shop = () => {
 
             <div className='flex justify-between w-[80%] mx-auto py-3' >
                 <div className='w-[50%]  '>
-                    <img src="/Rectangle_32 (3).png" alt="" className='mx-auto' />
+                    <Image src="/Rectangle_32 (3).png" alt="" className='mx-auto' />
                 </div>
                 <div className='w-[50%]  flex flex-col gap-3  pt-5'>
                     <div className='flex place-items-center gap-x-4'>
@@ -172,7 +172,7 @@ const Shop = () => {
                         <p className='text-[14px]'>
                         $26.00 <span className='text-[#FF2AAA]'>$52.00</span>
                         </p>
-                        <img src="/Group_236.png" alt="" className='w-[50px] h-[16px] '/>
+                        <Image src="/Group_236.png" alt="" className='w-[50px] h-[16px] '/>
                     </div>
                     <p className='text-[#9295AA] text-[14px]'>
                          Lorem ipsum dolor sit amet, consectetur adipiscing elit. Magna in est adipiscing in phasellus non in justo.
@@ -190,7 +190,7 @@ const Shop = () => {
 
             <div className='flex justify-between w-[80%] mx-auto py-3' >
                 <div className='w-[50%]  '>
-                    <img src="/Rectangle_32 (4).png" alt="" className='mx-auto' />
+                    <Image src="/Rectangle_32 (4).png" alt="" className='mx-auto' />
                 </div>
                 <div className='w-[50%]  flex flex-col gap-3  pt-5'>
                     <div className='flex place-items-center gap-x-4'>
@@ -205,7 +205,7 @@ const Shop = () => {
                         <p className='text-[14px]'>
                         $26.00 <span className='text-[#FF2AAA]'>$52.00</span>
                         </p>
-                        <img src="/Group_236.png" alt="" className='w-[50px] h-[16px] '/>
+                        <Image src="/Group_236.png" alt="" className='w-[50px] h-[16px] '/>
                     </div>
                     <p className='text-[#9295AA] text-[14px]'>
                          Lorem ipsum dolor sit amet, consectetur adipiscing elit. Magna in est adipiscing in phasellus non in justo.
@@ -223,7 +223,7 @@ const Shop = () => {
 
             <div className='flex justify-between w-[80%] mx-auto py-3' >
                 <div className='w-[50%]  '>
-                    <img src="/Rectangle_32 (5).png" alt="" className='mx-auto' />
+                    <Image src="/Rectangle_32 (5).png" alt="" className='mx-auto' />
                 </div>
                 <div className='w-[50%]  flex flex-col gap-3  pt-5'>
                     <div className='flex place-items-center gap-x-4'>
@@ -238,7 +238,7 @@ const Shop = () => {
                         <p className='text-[14px]'>
                         $26.00 <span className='text-[#FF2AAA]'>$52.00</span>
                         </p>
-                        <img src="/Group_236.png" alt="" className='w-[50px] h-[16px] '/>
+                        <Image src="/Group_236.png" alt="" className='w-[50px] h-[16px] '/>
                     </div>
                     <p className='text-[#9295AA] text-[14px]'>
                          Lorem ipsum dolor sit amet, consectetur adipiscing elit. Magna in est adipiscing in phasellus non in justo.
@@ -256,7 +256,7 @@ const Shop = () => {
 
             <div className='flex justify-between w-[80%] mx-auto py-3' >
                 <div className='w-[50%]  '>
-                    <img src="/Rectangle_32 (6).png" alt="" className='mx-auto' />
+                    <Image src="/Rectangle_32 (6).png" alt="" className='mx-auto' />
                 </div>
                 <div className='w-[50%]  flex flex-col gap-3  pt-5'>
                     <div className='flex place-items-center gap-x-4'>
@@ -271,7 +271,7 @@ const Shop = () => {
                         <p className='text-[14px]'>
                         $26.00 <span className='text-[#FF2AAA]'>$52.00</span>
                         </p>
-                        <img src="/Group_236.png" alt="" className='w-[50px] h-[16px] '/>
+                        <Image src="/Group_236.png" alt="" className='w-[50px] h-[16px] '/>
                     </div>
                     <p className='text-[#9295AA] text-[14px]'>
                          Lorem ipsum dolor sit amet, consectetur adipiscing elit. Magna in est adipiscing in phasellus non in justo.

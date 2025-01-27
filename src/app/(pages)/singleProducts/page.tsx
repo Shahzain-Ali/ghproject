@@ -1,4 +1,5 @@
 import React from 'react';
+import Image from 'next/image';
 
 const ProductPage = () => {
   return (
@@ -7,21 +8,21 @@ const ProductPage = () => {
       <section className="container p-2 mx-auto grid grid-cols-2 sm:grid-cols-2 smm:w-[45%] sm:w-[60%]  md:grid-cols-12 lg:grid-cols-12 gap-6 w-[95%] md:w-[70%] lg:w-[70%] shadow-md h-[auto] customsm:w-auto">
         {/* First Column: Vertical Images */}
         <div className="col-span-2  sm:col-span-1 md:col-span-2 lg:col-span-2  flex flex-col gap-4 sm:gap-6 pt-4">
-          <img src="/Rectangle_134.png" alt="Thumbnail 1" className="w-full h-[110px] object-center rounded-lg" />
-          <img src="/Rectangle_136.png" alt="Thumbnail 2" className="w-full h-[110px] object-center rounded-lg" />
-          <img src="/Rectangle_137.png" alt="Thumbnail 3" className="w-full h-[100px] object-center rounded-lg" />
+          <Image src="/Rectangle_134.png" alt="Thumbnail 1" className="w-full h-[110px] object-center rounded-lg" />
+          <Image src="/Rectangle_136.png" alt="Thumbnail 2" className="w-full h-[110px] object-center rounded-lg" />
+          <Image src="/Rectangle_137.png" alt="Thumbnail 3" className="w-full h-[100px] object-center rounded-lg" />
         </div>
 
         {/* Second Column: Main Image */}
         <div className="col-span-2 sm:col-span-1 md:col-span-5 lg:col-span-5 pt-4">
-          <img src="/Rectangle_138.png" alt="Main Product" className="w-full h-[350px] object-cover rounded-lg" />
+          <Image src="/Rectangle_138.png" alt="Main Product" className="w-full h-[350px] object-cover rounded-lg" />
         </div>
 
         {/* Third Column: Product Details */}
         <div className="col-span-2 sm:col-span-2 md:col-span-5 lg:col-span-5 flex flex-col gap-3 pt-4 sm:mx-auto ">
           <h1 className="text-2xl font-bold text-[#151875]">Playwood arm chair</h1>
           <div className="flex h-[15px] place-items-center">
-            <img src="/Group_236.png" alt="" className="w-[80px]" /><span>(22)</span>
+            <Image src="/Group_236.png" alt="" className="w-[80px]" /><span>(22)</span>
           </div>
           <div className="flex items-center gap-2">
             <p className="text-lg font-bold text-[#151875]">$32.00</p>
@@ -92,7 +93,7 @@ const ProductPage = () => {
         <div className="flex flex-wrap justify-center gap-6 mx-auto md:w-[85%] lg:w-[70%] w-full max-w-[1200px]">
           {[{ img: '/Rectangle_128.png', title: 'Free Delivery' }, { img: '/Rectangle_131.png', title: 'Cashback' }, { img: '/Rectangle_130.png', title: 'Premium Quality' }, { img: '/Rectangle_133.png', title: 'Premium Quality' }].map((item, index) => (
             <div key={index} className="w-[90%] smm:[240px] sm:w-[280px] md:w-[150px] lg:w-[150px] h-auto text-center bg-white rounded-lg flex flex-col items-center">
-              <img src={item.img} alt={item.title} className="w-[90%] smm:w-[60%] h-full smm:h-[300px] mb-4 bg-[#F7F7F7]" />
+              <Image src={item.img} alt={item.title} className="w-[90%] smm:w-[60%] h-full smm:h-[300px] mb-4 bg-[#F7F7F7]" />
               <p className="pt-2 text-[11px]">
                 {item.title} &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; $26.00 &nbsp;<s className="text-[#FB2448]">$42.00</s>
               </p>
@@ -100,7 +101,7 @@ const ProductPage = () => {
           ))}
         </div>
         <section className="w-auto my-8">
-          <img src="/Group_124 (2).png" alt="" className="w-[50%] mx-auto" />
+          <Image src="/Group_124 (2).png" alt="" className="w-[50%] mx-auto" />
         </section>
       </section>
     </div>

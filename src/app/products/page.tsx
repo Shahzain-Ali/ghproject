@@ -1,6 +1,6 @@
 'use client';
 
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, Suspense } from 'react';
 import { useSearchParams } from 'next/navigation';
 import FilteringData from '../components/FilteringData/FilteringData';
 import ProductListing from '../components/ProductListing/ProductListing';
@@ -11,7 +11,8 @@ import {
 } from "../../sanity/lib/queries";
 import { Product } from '@/app/types/Product';
 
-const ProductsPage = () => {
+// Create a separate component for the search functionality
+const ProductsContent = () => {
   const searchParams = useSearchParams();
   const category = searchParams.get('category');
   const [products, setProducts] = useState<Product[]>([]);
@@ -49,9 +50,7 @@ const ProductsPage = () => {
 
   const handleSearchSubmit = (e: React.KeyboardEvent<HTMLInputElement>) => {
     if (e.key === 'Enter') {
-      // Trigger search when Enter key is pressed
       e.preventDefault();
-      // The search will be triggered by the useEffect due to searchTerm change
     }
   };
 
@@ -73,6 +72,29 @@ const ProductsPage = () => {
       </div>
       <ProductListing allProducts={products} />
     </div>
+  );
+};
+
+// Loading component
+const LoadingComponent = () => (
+  <div className="container mx-auto px-4 py-8">
+    <div className="animate-pulse">
+      <div className="h-8 bg-gray-200 rounded w-1/4 mb-6"></div>
+      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+        {[1, 2, 3, 4, 5, 6].map((n) => (
+          <div key={n} className="bg-gray-200 h-64 rounded"></div>
+        ))}
+      </div>
+    </div>
+  </div>
+);
+
+// Main component
+const ProductsPage = () => {
+  return (
+    <Suspense fallback={<LoadingComponent />}>
+      <ProductsContent />
+    </Suspense>
   );
 };
 

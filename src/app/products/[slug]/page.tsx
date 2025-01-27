@@ -1,39 +1,37 @@
-  import React from 'react';
-  import { notFound } from 'next/navigation';
-  import { client } from '@/sanity/lib/client';
-  import { fetchProductBySlug } from '@/sanity/lib/queries';
-  import ProductClient from './clientProduct';
-  import { groq } from 'next-sanity';
+/* eslint-disable @typescript-eslint/no-explicit-any */
+// pages/products/[slug]/page.tsx
+/* eslint-disable @typescript-eslint/no-unused-vars */
 
-  interface ProductPageParams {
-    slug: string; // Changed from string to match Sanity's slug structure
+import { client } from '@/sanity/lib/client';
+import ProductClient from './clientProduct';
+import { fetchProductBySlug } from '@/sanity/lib/queries';
+
+
+// Generate static params
+const ProductPage = async ({ params }:any) => {
+  const { slug } = params;
+  const product = await fetchProductBySlug(slug);
+
+  console.log('Fetched Product:', product);
+
+  if (!product) {
+    return <div>Loading...</div>;
   }
 
-  const ProductPage = async ({ params }: { params: ProductPageParams }) => {
-    const { slug } = params;
-    
-    try {
-      const product = await fetchProductBySlug(slug);
-      
-      console.log('Fetched Product:', JSON.stringify(product, null, 2));
-      
-      if (!product) {
-        notFound();
-      }
-      
-      return <ProductClient product={product} />;
-    } catch (error) {
-      console.error('Error fetching product:', error);
-      notFound();
+  return <ProductClient product={product} />;
+};
+
+export async function generateStaticParams() {
+  const query = `*[_type == "product"] {
+    slug {
+      current
     }
-  };
-  export async function generateStaticParams() {
-    const query = groq`*[_type == "product"]{ "slug": slug.current }`;
-    const products = await client.fetch(query);
-    
-    return products.map((product: { slug: string }) => ({
-      slug: product.slug
-    }));
-  }
+  }`;
 
-  export default ProductPage;
+  const products = await client.fetch(query);
+  return products.map((product: { slug: { current: any; }; }) => ({
+    params: { slug: product.slug.current },
+  }));
+}
+
+export default ProductPage;

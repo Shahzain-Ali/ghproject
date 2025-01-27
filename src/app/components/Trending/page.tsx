@@ -115,12 +115,7 @@ const Trending = () => {
                   <span className="text-blue-500">✓</span>
                   <p className="text-gray-700">Price: ${product.price}</p>
                 </div>
-                <div className="flex items-center justify-center md:justify-start space-x-3">
-                  <span className="text-blue-500">✓</span>
-                  <p className="text-gray-700">
-                    Stock: {product.quantity} available
-                  </p>
-                </div>
+                
               </div>
             </div>
           </section>

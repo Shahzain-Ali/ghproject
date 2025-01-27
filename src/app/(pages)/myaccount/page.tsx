@@ -1,5 +1,6 @@
 import React from "react";
 import Link from "next/link";
+import Image from "next/image";
 
 const MyAccount = () => {
   return (
@@ -63,7 +64,7 @@ const MyAccount = () => {
         </div>
         </div>
         <section className="w-auto mb-2 mt-14">
-          <img src="/Group_124 (2).png" alt="" className="w-[50%] mx-auto" />
+          <Image src="/Group_124 (2).png" alt="" className="w-[50%] mx-auto" />
         </section>
       </section>
       
