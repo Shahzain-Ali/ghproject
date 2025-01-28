@@ -8,6 +8,8 @@ import { groq } from "next-sanity";
 import ReviewsSection from "../PreviewComponent/PreviewComponent";
 import { motion } from 'framer-motion';
 import { useCart } from "@/app/context/cartContext";
+// import { useRouter } from 'next/navigation';
+import Link from "next/link";
 
 const getFeaturedProducts = groq`*[_type == "product"] {
   _id,
@@ -28,6 +30,7 @@ const getFeaturedProducts = groq`*[_type == "product"] {
 }`;
 
 const TrendingProducts = () => {
+  
   const { dispatch, state } = useCart();
   const [products, setProducts] = useState<Product[]>([]);
   const [wishlistedProducts, setWishlistedProducts] = useState<Product[]>([]);
@@ -103,11 +106,17 @@ const TrendingProducts = () => {
     });
   };
 
+  // const navigateToProduct = (product: Product) => {
+  //   if (product.slug?.current) {
+  //     router.push(`/product/${product.slug.current}`);
+  //   }
+  // };
+
   const trendingProductNames = [
-      "Nordic Net Red Chair", 
-      "Cantilever Chair", 
-      "Replica Hans Wegner Wishbone Chair", 
-      "Futuristic Sleek Modern Chair"
+    "Nordic Net Red Chair", 
+    "Cantilever Chair", 
+    "Replica Hans Wegner Wishbone Chair", 
+    "Futuristic Sleek Modern Chair"
   ];
 
   const trendingProducts = products.filter(product => 
@@ -148,60 +157,65 @@ const TrendingProducts = () => {
               />
             </div>
 
-            {product.image?.asset?.url && (
-              <div className="relative">
-                <Image 
-                  src={product.image.asset.url} 
-                  alt={product.name} 
-                  width={500} 
-                  height={500} 
-                  className="w-full h-64 object-cover mb-4 rounded"
-                />
-                <div className="absolute top-2 right-2 z-20 flex flex-col space-y-2">
-                  <motion.button 
-                    whileHover={{ scale: 1.1 }}
-                    whileTap={{ scale: 0.9 }}
-                    onClick={(e) => {
-                      e.preventDefault();
-                      handleAddToWishlist(product);
-                    }}
-                    className="bg-white rounded-full p-2 shadow-md hover:bg-gray-100 transition-colors"
-                  >
-                    <Heart 
-                      className={`${
-                        wishlistedProducts.some(item => item._id === product._id)
-                          ? 'text-red-500 fill-current' 
-                          : 'text-gray-500'
-                      }`} 
-                      size={20} 
-                    />
-                  </motion.button>
-                  <motion.button
-                    whileHover={{ scale: 1.1 }}
-                    whileTap={{ scale: 0.9 }}
-                    onClick={() => handleCartToggle(product)}
-                    className={`rounded-full p-2 shadow-md transition-all duration-300 ${
-                      isProductInCart(product._id)
-                        ? 'bg-blue-500 hover:bg-blue-600'
-                        : 'bg-white hover:bg-gray-100'
-                    }`}
-                  >
-                    <ShoppingCart 
-                      size={20} 
-                      className={`transition-colors duration-300 ${
-                        isProductInCart(product._id) ? 'text-white' : 'text-gray-500'
+            <Link href={`/products/${product.slug.current}`} className="block cursor-pointer">
+              {product.image?.asset?.url && (
+                <div className="relative">
+                  <Image 
+                    src={product.image.asset.url} 
+                    alt={product.name} 
+                    width={500} 
+                    height={500} 
+                    className="w-full h-64 object-cover mb-4 rounded"
+                  />
+                  <div className="absolute top-2 right-2 z-20 flex flex-col space-y-2">
+                    <motion.button 
+                      whileHover={{ scale: 1.1 }}
+                      whileTap={{ scale: 0.9 }}
+                      onClick={(e) => {
+                        e.preventDefault(); // Prevent navigation when clicking wishlist button
+                        handleAddToWishlist(product);
+                      }}
+                      className="bg-white rounded-full p-2 shadow-md hover:bg-gray-100 transition-colors"
+                    >
+                      <Heart 
+                        className={`${
+                          wishlistedProducts.some(item => item._id === product._id)
+                            ? 'text-red-500 fill-current' 
+                            : 'text-gray-500'
+                        }`} 
+                        size={20} 
+                      />
+                    </motion.button>
+                    <motion.button
+                      whileHover={{ scale: 1.1 }}
+                      whileTap={{ scale: 0.9 }}
+                      onClick={(e) => {
+                        e.preventDefault(); // Prevent navigation when clicking cart button
+                        handleCartToggle(product);
+                      }}
+                      className={`rounded-full p-2 shadow-md transition-all duration-300 ${
+                        isProductInCart(product._id)
+                          ? 'bg-blue-500 hover:bg-blue-600'
+                          : 'bg-white hover:bg-gray-100'
                       }`}
-                    />
-                  </motion.button>
+                    >
+                      <ShoppingCart 
+                        size={20} 
+                        className={`transition-colors duration-300 ${
+                          isProductInCart(product._id) ? 'text-white' : 'text-gray-500'
+                        }`}
+                      />
+                    </motion.button>
+                  </div>
+                  <ReviewsSection productId={product._id} />
                 </div>
-                <ReviewsSection productId={product._id} />
-              </div>
-            )}
-            <h3 className="text-lg font-semibold mb-2">{product.name}</h3>
-            <p className="text-xl font-bold text-blue-600">${product.price}</p>
-            {product.description && (
-              <p className="text-sm text-gray-500 mt-2 line-clamp-2">{product.description}</p>
-            )}
+              )}
+              <h3 className="text-lg font-semibold mb-2">{product.name}</h3>
+              <p className="text-xl font-bold text-blue-600">${product.price}</p>
+              {product.description && (
+                <p className="text-sm text-gray-500 mt-2 line-clamp-2">{product.description}</p>
+              )}
+            </Link>
           </motion.div>
         ))}
       </div>

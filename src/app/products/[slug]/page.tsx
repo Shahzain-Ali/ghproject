@@ -1,6 +1,5 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
-// pages/products/[slug]/page.tsx
-/* eslint-disable @typescript-eslint/no-unused-vars */
+
 
 import { client } from '@/sanity/lib/client';
 import ProductClient from './clientProduct';
