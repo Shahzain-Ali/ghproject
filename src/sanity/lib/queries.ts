@@ -15,32 +15,32 @@ export const getLuxurySofa = groq`*[_type == "product" && name == "Luxury Flower
 
   export async function fetchProductBySlug(slug: string): Promise<Product | null> {
     const query = groq`*[_type == "product" && slug.current == $slug][0] {
-        _id,
-        name,
-        description,
-        price,
-        image {
-            asset-> {
-                _id,
-                url
-            }
-        },
-        slug,
-        discountPercentage,
-        isFeaturedProduct,
-        stockLevel,
-        category,
-        _createdAt,
-        _updatedAt
+      _id,
+      name,
+      description,
+      price,
+      image {
+        asset-> {
+          _id,
+          url
+        }
+      },
+      slug,
+      discountPercentage,
+      isFeaturedProduct,
+      stockLevel,
+      category,
+      _createdAt,
+      _updatedAt
     }`;
-
+  
     try {
-        return await client.fetch<Product>(query, { slug });
+      return await client.fetch<Product | null>(query, { slug });
     } catch (error) {
-        console.error("Error fetching product:", error);
-        return null;
+      console.error("Error fetching product:", error);
+      return null;
     }
-}
+  }
 
 
 export const getLatestProduct = groq `*[_type == "product" && name in ["Matilda Velvet Chair – Pink", "Rapson Thirty-Nine Guest Chair", "Varmora Plastic Chair Solid","Cozy Armchair"]] {

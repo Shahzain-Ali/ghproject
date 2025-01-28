@@ -1,14 +1,22 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
-
+// pages/products/[slug]/page.tsx
+/* eslint-disable @typescript-eslint/no-unused-vars */
 
 import { client } from '@/sanity/lib/client';
 import ProductClient from './clientProduct';
 import { fetchProductBySlug } from '@/sanity/lib/queries';
+import { Product } from '@/app/types/Product';
+import { groq } from 'next-sanity';
 
+interface ProductPageProps {
+  params: Promise<{ slug: string }>;
+}
 
-// Generate static params
-const ProductPage = async ({ params }:any) => {
-  const { slug } = params;
+const ProductPage = async ({ params }: ProductPageProps) => {
+  // Await the params before destructuring
+  const resolvedParams = await params;
+  const { slug } = resolvedParams;
+  
   const product = await fetchProductBySlug(slug);
 
   console.log('Fetched Product:', product);
@@ -21,15 +29,15 @@ const ProductPage = async ({ params }:any) => {
 };
 
 export async function generateStaticParams() {
-  const query = `*[_type == "product"] {
+  const query = groq`*[_type == "product"] {
     slug {
       current
     }
   }`;
 
-  const products = await client.fetch(query);
-  return products.map((product: { slug: { current: any; }; }) => ({
-    params: { slug: product.slug.current },
+  const products = await client.fetch<Product[]>(query);
+  return products.map((product) => ({
+    slug: product.slug.current,
   }));
 }
 

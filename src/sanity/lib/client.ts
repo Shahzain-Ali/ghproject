@@ -8,3 +8,8 @@ export const client = createClient({
   token: process.env.SANITY_API_TOKEN,
   apiVersion: '2025-01-16'
 });
+console.log('Sanity Client Config:', {
+  projectId: process.env.NEXT_PUBLIC_SANITY_PROJECT_ID,
+  dataset: process.env.NEXT_PUBLIC_SANITY_DATASET,
+  token: process.env.SANITY_API_TOKEN,
+});
