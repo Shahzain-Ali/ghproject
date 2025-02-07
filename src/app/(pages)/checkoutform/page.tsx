@@ -6,6 +6,8 @@ import { loadStripe } from '@stripe/stripe-js';
 import { Elements, CardElement, useStripe, useElements } from '@stripe/react-stripe-js';
 import { useCart } from '@/app/context/cartContext';
 import Image from 'next/image';
+import { client } from '@/sanity/lib/client';
+import { CheckoutSubmission } from '@/app/types/checkOut';
 
 // Stripe configuration
 const stripePromise = loadStripe(process.env.NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY || '');
@@ -22,6 +24,8 @@ const CheckoutSchema = z.object({
   country: z.string().min(2, "Country required"),
   postalCode: z.string().min(4, "Postal code required")
 });
+
+
 
 // Interfaces
 export interface CheckoutFormErrors {
@@ -212,10 +216,18 @@ const CheckoutForm: React.FC = () => {
     if (orderStatus !== 'idle') {
       return <OrderStatus />;
     }
-  const handleDetailsSubmit = (e: React.FormEvent) => {
+    const handleDetailsSubmit = async (e: React.FormEvent) => {
       e.preventDefault();
       try {
         CheckoutSchema.parse(formData);
+        
+        const checkoutData: CheckoutSubmission = {
+          _type: 'checkout',
+          ...formData,
+          createdAt: new Date().toISOString()
+        };
+    
+        await client.create(checkoutData);
         setIsPaymentStage(true);
         setErrors({});
       } catch (error) {
@@ -227,6 +239,7 @@ const CheckoutForm: React.FC = () => {
           }, {});
           setErrors(formErrors);
         }
+        console.error('Submission error:', error);
       }
     };
 

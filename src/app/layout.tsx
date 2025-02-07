@@ -1,22 +1,19 @@
 import type { Metadata } from "next";
 import localFont from "next/font/local";
 import { Josefin_Sans } from "next/font/google";
-// import Header from "./components/Header/page";
-// import Footer from "./components/Footer/page";
+
 import "./globals.css";
-// import Navbar from "./components/NavBar/page";
 import MainLayout from "./MainLayout";
+import { ClerkProvider } from '@clerk/nextjs'
 
-// import ShopexOffers from "./components/ShopexOffer.tsx/page";
-
-
-const josefin_Sans = Josefin_Sans({ weight: '400',subsets:["latin"]}); 
+const josefin_Sans = Josefin_Sans({ weight: '400', subsets: ["latin"] }); 
 
 const geistSans = localFont({
   src: "./fonts/GeistVF.woff",
   variable: "--font-geist-sans",
   weight: "100 900",
 });
+
 const geistMono = localFont({
   src: "./fonts/GeistMonoVF.woff",
   variable: "--font-geist-mono",
@@ -30,19 +27,21 @@ export const metadata: Metadata = {
 
 export default function RootLayout({
   children,
-}: Readonly<{
+}: {
   children: React.ReactNode;
-}>) {
+}) {
   return (
-    <html lang="en">
-      <body
-        className={`${geistSans.variable} ${geistMono.variable} antialiased ${josefin_Sans.className}`}
-      >
-        <MainLayout>
-        {children}
-  
-        </MainLayout>
-      </body>
-    </html>
+    <ClerkProvider>
+      <html lang="en">
+        <body className={`
+          ${geistSans.variable} 
+          ${geistMono.variable} 
+          ${josefin_Sans.className} 
+          antialiased
+        `}>
+          <MainLayout>{children}</MainLayout>
+        </body>
+      </html>
+    </ClerkProvider>
   );
 }
