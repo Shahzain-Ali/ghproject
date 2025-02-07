@@ -1,12 +1,9 @@
-import { createClient } from 'next-sanity';
-
-if (!process.env.NEXT_PUBLIC_SANITY_PROJECT_ID || !process.env.NEXT_PUBLIC_SANITY_DATASET) {
-  console.warn("Sanity credentials not properly loaded");
-}
+import { createClient } from 'next-sanity'
 
 export const client = createClient({
-  projectId: 'kkab2my1',
-  dataset: 'production',
-  useCdn: true,
-  apiVersion: '2025-01-16'
-});
+  projectId: process.env.NEXT_PUBLIC_SANITY_PROJECT_ID,
+  dataset: process.env.NEXT_PUBLIC_SANITY_DATASET,
+  apiVersion: '2025-02-07', // Use current date
+  useCdn: process.env.NODE_ENV === 'production',
+  token: process.env.SANITY_API_TOKEN // Include if you need authenticated requests
+})
