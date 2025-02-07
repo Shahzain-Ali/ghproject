@@ -21,6 +21,7 @@ const ProductPage = async ({ params }: ProductPageProps) => {
 
   console.log('Fetched Product:', product);
 
+
   if (!product) {
     return <div>Loading...</div>;
   }
