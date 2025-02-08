@@ -14,20 +14,33 @@ const Trending = () => {
 
   useEffect(() => {
     async function fetchTrendingProduct() {
-      const fetchedProduct = await client.fetch(getBlueSofa);
-      console.log("Fetched Product:", fetchedProduct);
-      setProduct(fetchedProduct[0]);
+      try {
+        const fetchedProduct = await client.fetch(getBlueSofa);
+        console.log("Fetched Product:", fetchedProduct);
+        if (fetchedProduct && fetchedProduct[0]) {
+          setProduct(fetchedProduct[0]);
+        }
+      } catch (error) {
+        console.error("Error fetching product:", error);
+      }
     }
     fetchTrendingProduct();
   }, []);
 
-  const isInCart = (productId: string) => {
+  // Check if product is in cart
+  const isInCart = (productId: string): boolean => {
     return state.cart.some(item => item._id === productId);
+  };
+
+  // Get cart item to check quantity
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
+  const getCartItem = (productId: string) => {
+    return state.cart.find(item => item._id === productId);
   };
 
   const handleAddToCart = () => {
     if (!product) return;
-
+  
     if (isInCart(product._id)) {
       dispatch({
         type: 'REMOVE_FROM_CART',
@@ -51,7 +64,7 @@ const Trending = () => {
       <div className="container mx-auto px-4">
         <div className="flex flex-col md:flex-row lg:flex-row items-center justify-center space-y-6 md:space-y-0 md:space-x-8">
           {/* Product Image */}
-          <section className="w-full md:w-1/2 flex justify-center ">
+          <section className="w-full md:w-1/2 flex justify-center">
             <div className="relative w-full max-w-md aspect-square bg-[pink] rounded-full">
               {product.image && (
                 <Image
@@ -94,7 +107,6 @@ const Trending = () => {
                 </div>
               </div>
             )}
-            <div className="flex place-items-center"></div>
 
             <div className="mb-8 flex mt-6">
               <motion.button
@@ -115,7 +127,6 @@ const Trending = () => {
                   <span className="text-blue-500">✓</span>
                   <p className="text-gray-700">Price: ${product.price}</p>
                 </div>
-                
               </div>
             </div>
           </section>

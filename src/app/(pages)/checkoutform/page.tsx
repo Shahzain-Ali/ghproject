@@ -140,10 +140,18 @@ const CheckoutForm: React.FC = () => {
   };
 
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
-  const handleDetailsSubmit = (e: React.FormEvent) => {
+  const handleDetailsSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     try {
       CheckoutSchema.parse(formData);
+      
+      const checkoutData: CheckoutSubmission = {
+        _type: 'checkout',
+        ...formData,
+        createdAt: new Date().toISOString()
+      };
+  
+      await client.create(checkoutData);
       setIsPaymentStage(true);
       setErrors({});
     } catch (error) {
@@ -155,6 +163,7 @@ const CheckoutForm: React.FC = () => {
         }, {});
         setErrors(formErrors);
       }
+      console.error('Submission error:', error);
     }
   };
 
@@ -188,7 +197,6 @@ const CheckoutForm: React.FC = () => {
     }
   };
 
-  // Order Status Component
   const OrderStatus = () => {
     if (orderStatus === 'success') {
       return (

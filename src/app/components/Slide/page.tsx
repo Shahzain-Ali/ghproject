@@ -37,7 +37,7 @@ function MainSection() {
       <section className="relative py-10 md:py-10 px-5 flex flex-col customsm:flex-col md:flex-row lg:flex-row sm:flex-col items-center justify-between overflow-hidden w-[100%] mx-auto">
         {/* Upper Image (Lamp) */}
         <div className="inline-block w-[18%] absolute top-0 left-0 sm:w-full ">
-          <div className="relative w-[220px] h-[160px] sm:w-[130px] sm:h-[100px]">
+          <div className="relative w-[100px] customsm:w-[80px] customsm:h-[100px] smm:w-[100px] smm:h-[80px] h-[130px] lg:w-[220px] lg:h-[160px] sm:w-[130px] sm:h-[100px] md:w-[140px] md:h-[150px] ">
             <Image
               src="/image_32.png"
               alt="Decorative lamp"

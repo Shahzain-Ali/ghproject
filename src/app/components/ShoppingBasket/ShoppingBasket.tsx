@@ -11,6 +11,10 @@ import { Trash2, Minus, Plus } from 'lucide-react';
 const ShoppingBasket: React.FC = () => {
     const { state, dispatch } = useCart();
 
+    const resetCart = () => {
+        dispatch({ type: 'RESET_CART' });
+    };
+
     const removeFromCart = (id: string) => {
         dispatch({ type: 'REMOVE_FROM_CART', payload: id });
     };
@@ -22,7 +26,7 @@ const ShoppingBasket: React.FC = () => {
     const decreaseQuantity = (item: CartItem) => {
         if (item.quantity > 1) {
             dispatch({
-                type: 'UPDATE_CART',
+                type: 'UPDATE_CART', // or 'UPDATE_QUANTITY' if you prefer to change all instances
                 payload: { ...item, quantity: item.quantity - 1 },
             });
         }
@@ -39,9 +43,20 @@ const ShoppingBasket: React.FC = () => {
 
     return (
         <div className="container mx-auto px-4 py-8 max-w-6xl">
-            <h1 className="text-3xl md:text-4xl font-bold text-gray-900 mb-8 text-center">
-                Your Shopping Cart
-            </h1>
+            <div className="flex justify-between items-center mb-8">
+                <h1 className="text-3xl md:text-4xl font-bold text-gray-900">
+                    Your Shopping Cart
+                </h1>
+                {cartItems.length > 0 && (
+                    <button
+                        onClick={resetCart}
+                        className="px-4 py-2 bg-red-600 text-white rounded-md hover:bg-red-700 transition"
+                        aria-label="Reset cart"
+                    >
+                        Reset Cart
+                    </button>
+                )}
+            </div>
 
             {cartItems.length === 0 ? (
                 <div className="text-center py-12 bg-gray-100 rounded-lg">
