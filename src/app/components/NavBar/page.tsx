@@ -45,7 +45,7 @@ function Navbar() {
       ],
     },
     { href: "/about", label: "Pages" },
-    { href: "/product", label: "Products" },
+    { href: "/products", label: "Products" },
     { href: "/blog", label: "Blog" },
     { href: "/shop", label: "Shop" },
     { href: "/contact", label: "Contact" },
