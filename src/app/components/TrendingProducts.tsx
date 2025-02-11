@@ -106,7 +106,7 @@ const TrendingProducts = () => {
           <h2 className="text-2xl md:text-3xl lg:text-4xl font-bold text-center text-indigo-900">
             Trending Products
           </h2>
-          <div className="absolute right-0 top-1/2 -translate-y-1/2">
+          <div className="absolute right-0 top-1/2 -translate-y-1/2 customsm:relative customsm:text-center customsm:mt-8 custom:text-center smm:relative smm:mt-8 smm:text-center">
             <button
               onClick={() => selectedProducts.length === 2 && setIsCompareModalOpen(true)}
               disabled={selectedProducts.length !== 2}
@@ -122,22 +122,22 @@ const TrendingProducts = () => {
         </div>
 
         {/* Top Products Grid */}
-        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 lg:grid-cols-4 gap-8 mb-12">
+        <div className="grid grid-cols-1  sm:grid-cols-2 md:grid-cols-4 lg:grid-cols-4 gap-8 mb-12">
           {products.slice(4, 8).map((product) => (
             <motion.div
               key={product._id}
-              className="bg-[#F6F7FB] rounded-lg relative group"
+              className="rounded-lg relative group"
               onMouseEnter={() => setHoveredProduct(product._id)}
               onMouseLeave={() => setHoveredProduct(null)}
             >
-              <div className="p-4">
-                <div className="relative aspect-square mb-4">
+              <div className="rounded-md shadow-md smm:w-[85%] customsm:w-[85%] smm:mx-auto customsm:mx-auto">
+                <div className="relative aspect-square mb-4 bg-[#F6F7FB] smm:h-[250px] w-[100%]">
                   {product.image?.asset?.url && (
                     <Image
                       src={product.image.asset.url}
                       alt={product.name}
                       fill
-                      className="object-contain"
+                      className="object-contain p-8"
                     />
                   )}
                   

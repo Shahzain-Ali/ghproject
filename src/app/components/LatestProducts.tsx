@@ -127,7 +127,7 @@ const LatestProducts = () => {
               ))}
             </ul>
           </div>
-          <div className="absolute right-0 top-0 md:top-1/2 md:-translate-y-1/2">
+          <div className="absolute right-0 top-0 md:top-1/2 md:-translate-y-1/2 customsm:relative customsm:text-center customsm:mt-8 custom:text-center smm:relative smm:mt-8 smm:text-center">
             <button
               onClick={() => canCompare && setIsCompareModalOpen(true)}
               disabled={!canCompare}
@@ -143,7 +143,7 @@ const LatestProducts = () => {
         </div>
 
         {/* Products Grid */}
-        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 md:gap-6">
+        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 md:gap-6 smm:w-[80%] mx-auto">
           {products.map((product) => product.slug?.current && (
             <motion.div
               key={product._id}
@@ -151,7 +151,7 @@ const LatestProducts = () => {
               onMouseEnter={() => setHoveredProduct(product._id)}
               onMouseLeave={() => setHoveredProduct(null)}
             >
-              <div className="relative aspect-square p-4 bg-[#F7F7F7] rounded-t-lg">
+              <div className="relative aspect-square p-4 bg-[#F7F7F7] rounded-t-lg smm:w-[100%] ">
                 {product.image && (
                   <Image
                     src={product.image.asset.url}

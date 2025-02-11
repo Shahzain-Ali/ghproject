@@ -1,93 +1,119 @@
-"use client"
+"use client";
+// import { useEffect } from "react";
+import Image from "next/image";
+import Link from "next/link";
+import { Trash2, ShoppingCart } from 'lucide-react';
+import { Product } from "@/app/types/Product";
+import { useWishlist } from "@/app/context/wishlistContext";
+import { useCart } from "@/app/context/cartContext";
 
-// wishlistContext.tsx
-import React, { createContext, useContext, useReducer } from 'react';
-import { Product } from '@/app/types/Product';
+const WishlistPage = () => {
+  const { state: wishlistState, dispatch: wishlistDispatch } = useWishlist();
+  const { dispatch: cartDispatch } = useCart();
 
-type WishlistState = {
-  wishlist: Product[];
-};
+  const removeFromWishlist = (productId: string) => {
+    wishlistDispatch({ type: 'REMOVE_FROM_WISHLIST', payload: productId });
+  };
 
-type WishlistAction = 
-  | { type: 'ADD_TO_WISHLIST'; payload: Product }
-  | { type: 'REMOVE_FROM_WISHLIST'; payload: string }
-  | { type: 'CLEAR_WISHLIST' };
+  const resetWishlist = () => {
+    wishlistDispatch({ type: 'CLEAR_WISHLIST' });
+  };
 
-const WishlistContext = createContext<{
-  state: WishlistState;
-  dispatch: React.Dispatch<WishlistAction>;
-} | undefined>(undefined);
-
-const initialState: WishlistState = {
-  wishlist: []
-};
-
-const wishlistReducer = (state: WishlistState, action: WishlistAction): WishlistState => {
-  switch (action.type) {
-    case 'ADD_TO_WISHLIST':
-      // Prevent duplicates
-      const exists = state.wishlist.some(item => item._id === action.payload._id);
-      if (exists) return state;
-      
-      const newState = {
-        ...state,
-        wishlist: [...state.wishlist, action.payload]
-      };
-      // Save to localStorage immediately
-      if (typeof window !== 'undefined') {
-        localStorage.setItem('wishlist', JSON.stringify(newState));
+  const addToCart = (product: Product) => {
+    cartDispatch({
+      type: 'ADD_TO_CART',
+      payload: {
+        ...product,
+        quantity: 1
       }
-      return newState;
-
-    case 'REMOVE_FROM_WISHLIST':
-      const updatedState = {
-        ...state,
-        wishlist: state.wishlist.filter(item => item._id !== action.payload)
-      };
-      // Save to localStorage immediately
-      if (typeof window !== 'undefined') {
-        localStorage.setItem('wishlist', JSON.stringify(updatedState));
-      }
-      return updatedState;
-
-    case 'CLEAR_WISHLIST':
-      if (typeof window !== 'undefined') {
-        localStorage.setItem('wishlist', JSON.stringify({ wishlist: [] }));
-      }
-      return { ...state, wishlist: [] };
-
-    default:
-      return state;
-  }
-};
-
-export const WishlistProvider: React.FC<{ children: React.ReactNode }> = ({ children }) => {
-  // Load initial state from localStorage
-  const [state, dispatch] = useReducer(wishlistReducer, initialState, () => {
-    if (typeof window !== 'undefined') {
-      const saved = localStorage.getItem('wishlist');
-      if (saved) {
-        try {
-          return JSON.parse(saved);
-        } catch {
-          return initialState;
-        }
-      }
-    }
-    return initialState;
-  });
+    });
+  };
 
   return (
-    <WishlistContext.Provider value={{ state, dispatch }}>
-      {children}
-    </WishlistContext.Provider>
+    <div className="container mx-auto p-4">
+      <div className="flex justify-between items-center mb-6">
+        <div className="flex items-center gap-3">
+          <h1 className="text-2xl font-bold">My Wishlist</h1>
+        </div>
+        {wishlistState.wishlist.length > 0 && (
+          <button
+            onClick={resetWishlist}
+            className="px-4 py-2 bg-red-600 text-white rounded-md hover:bg-red-700 transition"
+            aria-label="Reset wishlist"
+          >
+            Reset Wishlist
+          </button>
+        )}
+      </div>
+
+      {wishlistState.wishlist.length === 0 ? (
+        <div className="text-center text-gray-500 py-8 bg-gray-100 rounded-lg">
+          <p className="text-xl mb-4">Your wishlist is empty. Start adding some products!</p>
+          <Link 
+            href="/products" 
+            className="inline-block px-6 py-3 bg-gray-900 text-white rounded-md hover:bg-gray-700 transition"
+          >
+            Browse Products
+          </Link>
+        </div>
+      ) : (
+        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
+          {wishlistState.wishlist.map((product) => (
+            <div 
+              key={product._id} 
+              className="border rounded-lg p-4 relative group shadow-sm hover:shadow-md transition-shadow"
+            >
+              {product.image?.asset?.url ? (
+                <Image 
+                  src={product.image.asset.url} 
+                  alt={product.name} 
+                  width={300} 
+                  height={300} 
+                  className="w-full h-48 object-cover mb-4 rounded-md"
+                />
+              ) : (
+                <div className="w-full h-48 bg-gray-200 flex items-center justify-center mb-4 rounded-md">
+                  No Image Available
+                </div>
+              )}
+              
+              <h3 className="text-lg font-semibold mb-2">{product.name}</h3>
+              <p className="text-gray-600 mb-4">${product.price}</p>
+              
+              <div className="flex justify-between items-center">
+                {product.slug?.current && (
+                  <Link 
+                    href={`/products/${product.slug.current}`} 
+                    className="text-blue-500 hover:underline"
+                  >
+                    View Details
+                  </Link>
+                )}
+                
+                <div className="flex space-x-2">
+                  <button 
+                    onClick={() => removeFromWishlist(product._id)}
+                    className="text-red-500 hover:bg-red-50 p-2 rounded-full transition-colors"
+                    title="Remove from Wishlist"
+                  >
+                    <Trash2 size={20} />
+                  </button>
+                  
+                  <button 
+                    onClick={() => addToCart(product)}
+                    className="text-green-500 hover:bg-green-50 p-2 rounded-full transition-colors"
+                    title="Add to Cart"
+                  >
+                    <ShoppingCart size={20} />
+                  </button>
+                </div>
+              </div>
+            </div>
+          ))}
+        </div>
+      )}
+    </div>
   );
 };
 
-export const useWishlist = () => {
-  const context = useContext(WishlistContext);
-  if (!context) {
-    throw new Error('useWishlist must be used within a WishlistProvider');
-  }
-  return context;
-};
+export default WishlistPage;

@@ -112,9 +112,9 @@ const FeaturedProducts = () => {
 
   return (
     <div className="md:w-[100%] mx-auto px-4 sm:px-6 lg:px-4 lg:w-[90%] py-8 ">
-      <div className="relative mb-8">
-        <h2 className="text-2xl sm:text-3xl font-bold text-indigo-900 text-center">Featured Products</h2>
-        <div className="absolute right-0 top-1/2 -translate-y-1/2">
+      <div className="relative mb-8 smm:mb-4 ">
+        <h2 className="text-2xl sm:text-2xl font-bold text-indigo-900 text-center">Featured Products</h2>
+        <div className="absolute right-0 top-1/2 -translate-y-1/2 customsm:relative customsm:text-center customsm:mt-8 custom:text-center smm:relative smm:mt-8 smm:text-center">
           <button
             onClick={() => selectedProducts.length === 2 && setIsCompareModalOpen(true)}
             disabled={selectedProducts.length !== 2}
