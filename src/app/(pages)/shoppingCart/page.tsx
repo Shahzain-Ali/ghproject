@@ -4,7 +4,7 @@
 import dynamic from 'next/dynamic';
 
 const ShoppingBasket = dynamic(
-  () => import("../../components/ShoppingBasket/ShoppingBasket"),
+  () => import("../../components/ShoppingBasket"),
   { 
     ssr: false,
     loading: () => (

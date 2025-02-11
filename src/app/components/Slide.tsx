@@ -5,8 +5,8 @@ import Link from "next/link";
 import Image from "next/image";
 import { Product } from "@/app/types/Product";
 import { client } from "@/sanity/lib/client";
-import { getAllProducts, getLuxurySofa } from "@/sanity/lib/queries";
-import { urlFor } from "../utils/image";
+import { getLuxurySofa } from "@/sanity/lib/queries";
+import { urlFor } from "./utils/image";
 
 const slides = [
   {

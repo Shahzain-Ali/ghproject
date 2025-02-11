@@ -3,7 +3,7 @@ import Link from 'next/link';
 import Image from 'next/image';
 import { Heart, X } from 'lucide-react';
 import { Product } from '@/app/types/Product';
-import ReviewsSection from '../PreviewComponent/PreviewComponent';
+import ReviewsSection from "./PreviewComponent";
 
 interface ProductListingProps {
   allProducts: Product[];

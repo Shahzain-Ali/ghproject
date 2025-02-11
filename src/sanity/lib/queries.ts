@@ -42,24 +42,6 @@ export const getLuxurySofa = groq`*[_type == "product" && name == "Luxury Flower
     }
   }
 
-
-export const getLatestProduct = groq `*[_type == "product" && name in ["Matilda Velvet Chair – Pink", "Rapson Thirty-Nine Guest Chair", "Varmora Plastic Chair Solid","Cozy Armchair"]] {
-    name,
-    image {
-      asset-> {
-        _id,
-        url
-      }
-    },
-    price,
-    description,
-    discountPercentage,
-    category,
-    slug {
-      current
-    }
-}
-  `
 export const getBlueSofa = groq` *[_type == "product" && name == "Stylish Golden Metal Legs Mint Blue Fabric Velvet Sofa Leisure Armchair"] {
 
     name,

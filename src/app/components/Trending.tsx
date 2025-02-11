@@ -2,7 +2,7 @@
 import React, { useState, useEffect } from "react";
 import Image from "next/image";
 import { client } from "@/sanity/lib/client";
-import { urlFor } from "../utils/image";
+import { urlFor } from "./utils/image";
 import { Product } from "@/app/types/Product";
 import { getBlueSofa } from "@/sanity/lib/queries";
 import { useCart } from "@/app/context/cartContext";

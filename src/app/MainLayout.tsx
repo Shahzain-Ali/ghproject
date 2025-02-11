@@ -1,10 +1,11 @@
 'use client';
 
 import { usePathname } from "next/navigation";
-import Header from "./components/Header/page";
-import Navbar from "./components/NavBar/page";
-import Footer from "./components/Footer/page";
+import Header from "./components/Header";
+import Navbar from "./components/NavBar";
+import Footer from "./components/Footer";
 import { CartProvider } from '@/app/context/cartContext';
+import { WishlistProvider } from '@/app/context/wishlistContext';
 
 export default function MainLayout({
   children
@@ -17,6 +18,7 @@ export default function MainLayout({
   return (
   
     <CartProvider>
+      <WishlistProvider>
       {!isStudioPage && (
         <>
           <Header/>
@@ -25,6 +27,7 @@ export default function MainLayout({
       )}
       {children}
       {!isStudioPage && <Footer/>}
+      </WishlistProvider>
     </CartProvider>
     
   );

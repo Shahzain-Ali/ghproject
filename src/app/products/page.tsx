@@ -2,8 +2,8 @@
 
 import React, { useState, useEffect, Suspense } from 'react';
 import { useSearchParams } from 'next/navigation';
-import FilteringData from '../components/FilteringData/FilteringData';
-import ProductListing from '../components/ProductListing/ProductListing';
+import FilteringData from '../components/FilteringData';
+import ProductListing from '../components/ProductListing';
 import { 
   getAllProducts, 
   getProductsByCategory, 

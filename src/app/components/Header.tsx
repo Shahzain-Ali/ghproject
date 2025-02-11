@@ -3,13 +3,16 @@ import React, { useState } from "react";
 import { MdOutlineEmail } from "react-icons/md";
 import { FaPhoneVolume } from "react-icons/fa6";
 import { FiUser } from "react-icons/fi";
-import { FaChevronDown, FaRegHeart } from "react-icons/fa6";
+import { FaChevronDown } from "react-icons/fa6";
 import { LuShoppingCart } from "react-icons/lu";
 import { Josefin_Sans } from "next/font/google";
-import { useRouter } from "next/navigation";
 import { useCart } from '@/app/context/cartContext';
 import { ClerkLoaded, SignInButton, useUser } from "@clerk/nextjs";
 import Link from "next/link";
+import { Heart } from "lucide-react";
+// eslint-disable-next-line @typescript-eslint/no-unused-vars
+import { Product } from "../types/Product";
+import { useWishlist } from "../context/wishlistContext";
 
 const josefin_Sans = Josefin_Sans({ weight: "400", subsets: ["latin"] });
 
@@ -22,15 +25,16 @@ const languages = [
 ];
 
 const Header = () => {
-  const router = useRouter();
   const { state } = useCart();
   const { user } = useUser();
   const [selectedLanguage, setSelectedLanguage] = useState(languages[0]);
   const [languageDropdownOpen, setLanguageDropdownOpen] = useState(false);
+ 
+  
+  const { state: wishlistState } = useWishlist();
 
-  const navigateToWishlist = () => {
-    router.push("/wishlist");
-  };
+
+  const wishlistItemCount = wishlistState.wishlist.length;
 
   const cartItemCount = state.cart.reduce((total, item) => total + item.quantity, 0);
 
@@ -116,14 +120,18 @@ const Header = () => {
             )}
           </ClerkLoaded>
 
-          {/* Wishlist */}
-          <div
-            className="flex items-center gap-2 cursor-pointer"
-            onClick={navigateToWishlist}
-          >
-            <h1 className="text-sm customsm:text-[11px] smm:text-[12px] sm:text-base font-semibold">Wishlist</h1>
-            <FaRegHeart className="w-4 h-4 customsm:w-3" />
-          </div>
+           {/* Wishlist  */}  
+           
+           <div className="relative">
+          <Link href="/wishlist" className="cursor-pointer relative">
+            <Heart className="w-6 h-6" />
+            {wishlistItemCount > 0 && (
+              <span className="absolute -top-2 -right-2 bg-red-500 text-white text-xs rounded-full w-5 h-5 flex items-center justify-center">
+                {wishlistItemCount}
+              </span>
+            )}
+          </Link>
+    </div>
 
           {/* Shopping Cart */}
           <Link href="/shoppingCart" className="cursor-pointer relative">

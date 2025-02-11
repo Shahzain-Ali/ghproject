@@ -5,6 +5,16 @@ import {FaLinkedin } from 'react-icons/fa'
 import Link from "next/link"
 
 function Footer() {
+
+
+
+
+
+  const handleSignUp = () => {
+    // Redirect to Clerk's sign-up page
+    window.location.href = 'https://magnetic-anchovy-34.accounts.dev/sign-up?redirect_url=http%3A%2F%2Flocalhost%3A3000%2F'
+  }
+
   return (
     <div className='bg-[#EEEFFB]'>
         <footer className="text-gray-600 body-font ">
@@ -31,9 +41,12 @@ function Footer() {
               className="w-full bg-gray-100 bg-opacity-50 rounded border border-gray-300 focus:bg-transparent focus:ring-2 focus:ring-indigo-200 focus:border-indigo-500 text-xs outline-none text-gray-700 py-1 px-3 leading-8 transition-colors duration-200 ease-in-out"
             />
           </div>
-          <button className="lg:mt-2 xl:mt-0 flex-shrink-0 inline-flex text-white bg-[#FB2E86] border-0 py-2 px-6 focus:outline-none hover:bg-red-600 rounded customsm:my-4">
-            Sign-Up
-          </button>
+         <button 
+                onClick={handleSignUp}
+                className="lg:mt-2 xl:mt-0 flex-shrink-0 inline-flex text-white bg-[#FB2E86] border-0 py-2 px-6 focus:outline-none hover:bg-red-600 rounded customsm:my-4"
+              >
+                Sign-Up         
+        </button>
         </div>
         <p className="text-gray-500 text-sm mt-2 md:text-left lg:text-left text-center">
         Contact Info
