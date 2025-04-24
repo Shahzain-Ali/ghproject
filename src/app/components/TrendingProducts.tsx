@@ -8,12 +8,13 @@ import { groq } from "next-sanity";
 import { motion } from 'framer-motion';
 import { useCart } from "@/app/context/cartContext";
 import Link from "next/link";
+import { useTranslations } from "next-intl";
 
 const getFeaturedProducts = groq`*[_type == "product" && name in [
   "Cantilever Chair",
   "Nordic Net Red Chair",
   "Futuristic Sleek Modern Chair",
-  "Sobuy Blue Folding Chair Wooden Padded",
+  "Sobuy Folding Chair Wooden",
   "Liberty Wood 63' Floating Entertainment Center",
   "Replica Hans Wegner Wishbone Chair",
   "Nautilus Lounge Chair",
@@ -43,6 +44,8 @@ const TrendingProducts = () => {
   const [selectedProducts, setSelectedProducts] = useState<Product[]>([]);
   const [hoveredProduct, setHoveredProduct] = useState<string | null>(null);
   const [isCompareModalOpen, setIsCompareModalOpen] = useState(false);
+  const [toast, setToast] = useState({ show: false, message: '', type: '' });
+  const t = useTranslations()
 
   useEffect(() => {
     const fetchProducts = async () => {
@@ -65,12 +68,28 @@ const TrendingProducts = () => {
     loadWishlist();
   }, []);
 
+  useEffect(() => {
+    if (toast.show) {
+      const timer = setTimeout(() => {
+        setToast({ show: false, message: '', type: '' });
+      }, 3000);
+      
+      return () => clearTimeout(timer);
+    }
+  }, [toast]);
+  
+  const showToast = (message: string, type: string) => {
+    setToast({ show: true, message, type });
+  };
+
   const handleCartToggle = (product: Product) => {
     const isInCart = isProductInCart(product._id);
     if (isInCart) {
       dispatch({ type: 'REMOVE_FROM_CART', payload: product._id });
+      showToast('Item removed from cart', 'info');
     } else {
       dispatch({ type: 'ADD_TO_CART', payload: { ...product, quantity: 1 }});
+      showToast('Successfully item added to cart', 'success');
     }
   };
 
@@ -88,23 +107,39 @@ const TrendingProducts = () => {
   };
 
   const handleAddToWishlist = (product: Product) => {
+    const isAlreadyWishlisted = wishlistedProducts.some(item => item._id === product._id);
+    
     setWishlistedProducts(prev => {
-      const isAlreadyWishlisted = prev.some(item => item._id === product._id);
       const updatedWishlist = isAlreadyWishlisted
         ? prev.filter(item => item._id !== product._id)
         : [...prev, product];
       localStorage.setItem('wishlist', JSON.stringify(updatedWishlist));
       return updatedWishlist;
     });
+    
+    if (isAlreadyWishlisted) {
+      showToast('Item removed from wishlist', 'info');
+    } else {
+      showToast('Successfully item added to wishlist', 'success');
+    }
   };
 
   return (
     <div className="w-full bg-white px-4 md:px-6 lg:px-8 py-12">
       <div className="max-w-7xl mx-auto">
+        {/* Toast Notification */}
+        {toast.show && (
+          <div className={`fixed top-4 right-4 z-50 px-4 py-2 rounded-md shadow-lg ${
+            toast.type === 'success' ? 'bg-green-500 text-white' : 'bg-blue-500 text-white'
+          }`}>
+            {toast.message}
+          </div>
+        )}
+        
         {/* Header with Compare Button */}
         <div className="relative mb-12">
           <h2 className="text-2xl md:text-3xl lg:text-4xl font-bold text-center text-indigo-900">
-            Trending Products
+             {t('trendingProducts.heading')}
           </h2>
           <div className="absolute right-0 top-1/2 -translate-y-1/2 customsm:relative customsm:text-center customsm:mt-8 custom:text-center smm:relative smm:mt-8 smm:text-center">
             <button
@@ -121,100 +156,96 @@ const TrendingProducts = () => {
           </div>
         </div>
 
-        {/* Top Products Grid */}
-        <div className="grid grid-cols-1  sm:grid-cols-2 md:grid-cols-4 lg:grid-cols-4 gap-8 mb-12">
+        {/* {All Products UI} */}
+
+        <div className="grid grid-cols-1 md:p-0 p-8 sm:grid-cols-2 md:grid-cols-4 lg:grid-cols-4 gap-4 sm:gap-6 md:gap-4 lg:gap-8 mb-8">
           {products.slice(4, 8).map((product) => (
             <motion.div
               key={product._id}
-              className="rounded-lg relative group"
+              className="relative bg-white rounded-lg shadow-lg hover:shadow-md transition-all duration-300"
               onMouseEnter={() => setHoveredProduct(product._id)}
               onMouseLeave={() => setHoveredProduct(null)}
             >
-              <div className="rounded-md shadow-md smm:w-[85%] customsm:w-[85%] smm:mx-auto customsm:mx-auto">
-                <div className="relative aspect-square mb-4 bg-[#F6F7FB] smm:h-[250px] w-[100%]">
-                  {product.image?.asset?.url && (
-                    <Image
-                      src={product.image.asset.url}
-                      alt={product.name}
-                      fill
-                      className="object-contain p-8"
-                    />
-                  )}
-                  
-                  {/* Hover Overlay */}
-                  {hoveredProduct === product._id && (
-                    <div className="absolute inset-0 bg-black bg-opacity-10 flex items-center justify-center">
-                      <div className="absolute top-4 right-4 flex flex-col space-y-2">
-                        <motion.button
-                          initial={{ opacity: 0, y: -10 }}
-                          animate={{ opacity: 1, y: 0 }}
-                          onClick={() => handleAddToWishlist(product)}
-                          className="bg-white p-2 rounded-full shadow-md hover:bg-gray-50"
-                        >
-                          <Heart
-                            className={wishlistedProducts.some(item => item._id === product._id)
-                              ? 'text-red-500 fill-current'
-                              : 'text-gray-600'
-                            }
-                            size={20}
-                          />
-                        </motion.button>
-                        <motion.button
-                          initial={{ opacity: 0, y: -10 }}
-                          animate={{ opacity: 1, y: 0 }}
-                          onClick={() => handleCartToggle(product)}
-                          className={`p-2 rounded-full shadow-md ${
-                            isProductInCart(product._id)
-                              ? 'bg-blue-500'
-                              : 'bg-white hover:bg-gray-50'
-                          }`}
-                        >
-                          <ShoppingCart
-                            size={20}
-                            className={isProductInCart(product._id) ? 'text-white' : 'text-gray-600'}
-                          />
-                        </motion.button>
-                      </div>
-
-                      <Link
-                        href={`/products/${product.slug.current}`}
-                        className="absolute bottom-4 left-1/2 transform -translate-x-1/2"
+              <div className="relative aspect-square overflow-hidden rounded-t-lg bg-[#F6F7FB]">
+                {product.image?.asset?.url && (
+                  <Image
+                    src={product.image.asset.url}
+                    alt={product.name}
+                    fill
+                    className="object-cover transition-transform duration-300 hover:scale-105"
+                  />
+                )}
+                
+                {/* Hover Overlay */}
+                {hoveredProduct === product._id && (
+                  <div className="absolute inset-0 bg-black bg-opacity-10 flex items-center justify-center">
+                    <div className="absolute top-4 right-4 flex flex-col space-y-2">
+                      <motion.button
+                        initial={{ opacity: 0, y: -10 }}
+                        animate={{ opacity: 1, y: 0 }}
+                        className="bg-white p-2 rounded-full shadow-md hover:bg-gray-50"
+                        onClick={(e) => {
+                          e.preventDefault();
+                          handleAddToWishlist(product);
+                        }}
                       >
-                        <motion.button
-                          initial={{ opacity: 0, y: 10 }}
-                          animate={{ opacity: 1, y: 0 }}
-                          className="bg-green-500 text-white px-4 py-2 rounded-md text-sm font-medium hover:bg-green-600 transition-colors"
-                        >
-                          View Details
-                        </motion.button>
-                      </Link>
-
-                      <motion.div 
-                        initial={{ opacity: 0 }}
-                        animate={{ opacity: 1 }}
-                        className="absolute top-4 left-4"
-                      >
-                        <input
-                          type="checkbox"
-                          checked={selectedProducts.some(p => p._id === product._id)}
-                          onChange={() => handleProductSelect(product)}
-                          className="form-checkbox h-5 w-5 text-indigo-600 rounded border-gray-300"
+                        <Heart
+                          size={20}
+                          className={wishlistedProducts.some(item => item._id === product._id) ? 'text-red-500 fill-current' : 'text-gray-600'}
                         />
-                      </motion.div>
+                      </motion.button>
+                      <motion.button initial={{ opacity: 0, y: -10 }} animate={{ opacity: 1, y: 0 }} whileHover={{ scale: 1.1 }} whileTap={{ scale: 0.9 }} 
+                        onClick={(e) => { e.preventDefault(); e.stopPropagation(); handleCartToggle(product); }} 
+                        className="bg-white p-2 rounded-full shadow-md transition-colors duration-300 hover:bg-gray-50" > 
+                        <ShoppingCart size={20}
+                        className={`transition-colors duration-300 ${ state.cart.some(item => item._id === product._id) ? 'text-blue-500 fill-current' : 'text-gray-600' }`} />
+                        </motion.button>
                     </div>
+                    
+                    <Link
+                      href={`/products/${product.slug.current}`}
+                      className="absolute bottom-4 left-1/2 transform -translate-x-1/2"
+                    >
+                      <motion.button
+                        initial={{ opacity: 0, y: 10 }}
+                        animate={{ opacity: 1, y: 0 }}
+                        className="bg-green-500 text-white w-[100px] h-[40px] rounded-md text-sm font-medium hover:bg-green-600 transition-colors"
+                      >
+                        View Details
+                      </motion.button>
+                    </Link>
+
+                    <motion.div 
+                      initial={{ opacity: 0 }}
+                      animate={{ opacity: 1 }}
+                      className="absolute top-4 left-4"
+                    >
+                      <input
+                        type="checkbox"
+                        checked={selectedProducts.some(p => p._id === product._id)}
+                        onChange={() => handleProductSelect(product)}
+                        className="form-checkbox h-4 w-4 sm:h-5 sm:w-5 text-indigo-600 rounded border-gray-300"
+                      />
+                    </motion.div>
+                  </div>
+                )}
+              </div>
+              
+              <div className="p-3 sm:p-4">
+                <h3 className="text-base sm:text-lg font-medium text-center text-pink-500">
+                  {t(`trendingProducts.${product.name}`)}
+                </h3>
+                <p className="text-xs sm:text-sm text-center text-gray-600 mt-1">Code - {product._id}</p>
+                <div className="flex justify-center items-center gap-3 mt-2">
+                  <span className="text-base sm:text-lg font-semibold text-indigo-900">
+                    ${product.price}
+                  </span>
+                  {product.discountPercentage && (
+                    <span className="text-xs sm:text-sm text-gray-400 line-through">
+                      ${(product.price * (1 + product.discountPercentage/100)).toFixed(2)}
+                    </span>
                   )}
                 </div>
-                <Link href={`/products/${product.slug.current}`} className="block text-center">
-                  <h3 className="text-lg font-medium text-pink-500 mb-2">{product.name}</h3>
-                  <div className="flex justify-center items-center gap-3">
-                    <span className="text-indigo-900 font-bold">${product.price}</span>
-                    {product.discountPercentage && (
-                      <span className="text-gray-400 line-through">
-                        ${(product.price * (1 + product.discountPercentage/100)).toFixed(2)}
-                      </span>
-                    )}
-                  </div>
-                </Link>
               </div>
             </motion.div>
           ))}
@@ -222,12 +253,12 @@ const TrendingProducts = () => {
 
         {/* Rest of your existing promotional and products list sections remain unchanged */}
          {/* Promotional and Products List Section */}
-         <div className="grid grid-cols-1 md:grid-cols-3 lg:grid-cols-3 gap-8">
+         <div className="grid grid-cols-1 sm:gap-2 sm:grid-cols-3 md:grid-cols-3 lg:grid-cols-3 gap-8 sm:w-[95%] mx-auto">
           {/* Left Promo */}
           <div className="bg-pink-50 rounded-lg p-8">
-            <h3 className="text-xl font-bold text-indigo-900 mb-2">23% off in all products</h3>
+            <h3 className="text-xl font-bold text-indigo-900 mb-2">{t('trendingProducts.Discount')}</h3>
             <Link href="/shop" className="text-pink-500 hover:text-pink-600 inline-block mb-6">
-              Shop Now
+              {t('trendingProducts.buttonText')}
             </Link>
             <div className="flex justify-end ">
               <div className="relative w-48 h-48">
@@ -243,9 +274,9 @@ const TrendingProducts = () => {
 
           {/* Middle Promo */}
           <div className="bg-blue-50 rounded-lg p-8">
-            <h3 className="text-xl font-bold text-indigo-900 mb-2">23% off in all products</h3>
+            <h3 className="text-xl font-bold text-indigo-900 mb-2">{t('trendingProducts.Discount')}</h3>
             <Link href="/collection" className="text-pink-500 hover:text-pink-600 inline-block mb-6">
-              View Collection
+            {t('trendingProducts.viewCollection')}
             </Link>
           {products.slice(3,4).map((product) => (
             <div key={product._id} className="flex items-center gap-4 " >
@@ -266,7 +297,7 @@ const TrendingProducts = () => {
           {/* Right Products List */}
           <div className="space-y-6">
             {products.slice(0,3).map((product) => (
-              <div key={product._id} className="flex items-center gap-4">
+              <div key={product._id} className="flex items-center gap-4 ">
                 <div className="relative w-20 h-20 bg-[#F6F7FB] rounded-lg p-2">
                   {product.image?.asset?.url && (
                     <Image
@@ -278,7 +309,7 @@ const TrendingProducts = () => {
                   )}
                 </div>
                 <div>
-                  <h3 className="font-medium text-indigo-900">{product.name}</h3>
+                  <h3 className="font-medium text-indigo-900">{t(`trendingProducts.${product.name}`)}</h3>
                   <p className="text-indigo-600 font-bold">${product.price}</p>
                 </div>
               </div>

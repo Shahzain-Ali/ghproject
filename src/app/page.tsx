@@ -1,13 +1,14 @@
 import React from 'react'
 import Home from './(pages)/home/page'
+// import { useTranslations } from 'next-intl';
 
 const Main = () => {
-  return (
+  // const t = useTranslations('HomePage');
+  return(
     <div>
-      <Home/>
-      
-    </div>
-  )
-}
+     {/* <h1>{t('title')}</h1>; */}
+     <Home/>
+     </div>
+)}
 
-export default Main
+export default Main;

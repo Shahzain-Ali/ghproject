@@ -1,0 +1,156 @@
+{
+ 
+  "HomePage": {
+    "title": "2024 نیا فرنیچر کلیکشن کے نئے رجحانات",
+    "description": "لوریم اِپسم ڈولر سِٹ امیٹ، کونسیکٹیٹور ایڈپِسکِنگ ایلیٹ۔ فیزیلَس نان اِن جُسٹو۔",
+    "buttonText": "ابھی خریدیں",
+    "bestFurniture": "آپ کے گھر کے لئے بہترین فرنیچر...",
+    "lampAlt": "سجاوٹی چراغ"
+  },
+ "featuredProducts": {
+    "heading":"خصوصی مصنوعات",
+    "Varmora Plastic Chair Solid": "وارمورا پلاسٹک کرسی",
+    "Hans Wegner Style Three-Legged Shell Chair": "ہانس ویگنر اسٹائل تین ٹانگوں والی شیل کرسی",
+    "Tribù Elio Chair": "ٹریبو ایلیو کرسی",
+    "Sobuy Folding Chair Wooden": "سوبائی نیلی فولڈنگ لکڑی کی کرسی"
+  },
+  "trendingProducts": {
+    "heading":"مقبول مصنوعات",
+    "Cantilever Chair": "کینٹیلیور کرسی",
+    "Nordic Net Red Chair": "نارڈک نیٹ ریڈ کرسی",
+    "Futuristic Sleek Modern Chair": "مستقبل کی جدید چمکدار کرسی",
+    "Sobuy Folding Chair Wooden": "سوبائی فولڈنگ لکڑی کی کرسی",
+    "Liberty Wood 63' Floating Entertainment Center": "لبرٹی ووڈ 63 فلوٹنگ انٹرٹینمنٹ سینٹر",
+    "Replica Hans Wegner Wishbone Chair": "ریپلیکا ہانس ویگنر وشبون کرسی",
+    "Nautilus Lounge Chair": "ناٹیلس لاؤنج کرسی",
+    "Alpha Chair – Solid Ebonised Oak": "الفا کرسی - سولیڈ ایبونائزڈ اوک",
+    "Discount":"تمام پروڈکٹس پر 23% رعایت",
+    "buttonText": "ابھی خریدیں",
+    "viewCollection": "مجموعہ دیکھیں"
+
+  },
+  "latestProducts": {
+    "heading": "تازہ ترین مصنوعات",
+    "Matilda Velvet Chair – Pink": "میٹیلیڈا ویلویٹ کرسی - گلابی",
+    "Rapson Thirty-Nine Guest Chair": "ریپسن 39 گیسٹ کرسی",
+    "Varmora Plastic Chair Solid": "وارمورا پلاسٹک کرسی - سالڈ",
+    "Cozy Armchair": "آرام دہ آرم چیئر",
+    "New Arrival": "نئی آمد",
+    "Best Seller": "بہترین فروخت",
+    "Featured": "نمایاں",
+    "Offer": "آفر"
+  },
+  "shopexOffer": {
+    "heading": "شاپیکس آفر",
+    "Free Delivery": {
+      "title": "فری ڈیلیوری",
+      "description": "اپنی پسندیدہ مصنوعات بغیر کسی اضافی لاگت کے حاصل کریں!"
+    },
+    "Cashback": {
+      "title": "کیش بیک",
+      "description": "خریداری کریں اور زبردست کیش بیک حاصل کریں!"
+    },
+    "Premium Quality": {
+      "title": "اعلیٰ معیار",
+      "description": "پائیداری، بہترین کاریگری اور اعلیٰ معیار کی ضمانت!"
+    },
+    "24/7 Support": {
+      "title": "چوبیس گھنٹے معاونت",
+      "description": "کسی بھی وقت ہماری سپورٹ ٹیم سے مدد حاصل کریں!"
+    }
+  },
+  "stylishSofa": {
+    "name": "اسٹائلش گولڈن میٹل لیگس ویلویٹ سوفا",
+    "description": "اے لگژری آرم چیئر ود ویلویٹ فابرک اینڈ گولڈن میٹل لیگس.",
+    "features": {
+        "reinforcedStructure": "آرمز، بیکس، اینڈ سیٹس آر اسٹرکچریلی رینفورسڈ.",
+        "solidWoodFrame": "آل فریمز کنسٹرکٹڈ ود ہارڈ ووڈ سالڈز اینڈ لیمینیٹس."
+    }
+  },
+  "discountItem": {
+      "title": "ڈسکاؤنٹ آئٹم",
+      "offer": "20% ڈسکاؤنٹ آف آل پروڈکٹس",
+      "productName": "ایمز سوفا کمپیکٹ",
+      "description": "لورم اِپسَم ڈولَر سِت اَمیت، کونسیٹَیتُور اَڈِپِسکِنگ اَیلیت۔ ایو ایگٹ فیوجیٹ ہیبِٹاسے نیک، بِبِندُم کونڈِمنٹم.",
+      "features": {
+          "material": "مٹیریل ایکسپوز لائک میٹلز",
+          "colors": "سمپل نیوٹرل کلرز",
+          "design": "کلئیر لائنز اینڈ جیومیٹرک فگرز",
+          "repeatMaterial": "مٹیریل ایکسپوز لائک میٹلز"
+      },
+      "button": "ابھی خریدیں",
+      "categories": ["وڈ چیئر", "پلاسٹک چیئر", "سوفا کلیکشن"]
+  },
+  "topCategories": {
+     "heading":"نمایاں اقسام",
+      "Cantilever Chair": "کینٹیلیور کرسی",
+      "High Quality Modern Customized Plastic Chair": "اعلی معیار کی جدید حسب ضرورت پلاسٹک کرسی",
+      "Varmora Plastic Chair Solid": "وارمورا پلاسٹک کرسی سولیڈ",
+      "Replica Hans Wegner Wishbone Chair": "ریپلیکا ہانس ویگنر وشبون کرسی"
+    },
+
+"latestBlog": {
+    "heading": "تازہ ترین بلاگ",
+    "author1": "شاہزین علی",
+    "date1": "21 اگست، 2024",
+    "title1": "2024 کے ضروری رجحانات",
+    "description1": "اس میں زیادہ اور کم، سلام سام لینڈ جھوٹ بولے، سختی سے لپیٹے ہوئے گھوڑے کے ساتھ",
+    "author2": "جیسیکا",
+    "date2": "21 اگست، 2024",
+    "title2": "2025 کے ضروری رجحانات",
+    "description2": "اس میں زیادہ اور کم، سلام سام لینڈ جھوٹ بولے، سختی سے لپیٹے ہوئے گھوڑے کے ساتھ",
+    "author3": "شیروز علی",
+    "date3": "21 اگست، 2024",
+    "title3": "2024 کے ضروری رجحانات",
+    "description3": "اس میں زیادہ اور کم، سلام سام لینڈ جھوٹ بولے، سختی سے لپیٹے ہوئے گھوڑے کے ساتھ",
+    "readMore": "مزید پڑھیں"
+  },
+
+  "Navigation": {
+    "heading":"شاپیکس آفر",
+    "Home": "ہوم",
+    "Pages": "صفحات",
+    "Products": "مصنوعات",
+    "Blog": "بلاگ",
+    "Shop": "خریداری",
+    "Contact": "رابطہ"
+  },
+  "footer": {
+    "brand": "ہیکٹو",
+    "emailPlaceholder": "ای میل ایڈریس درج کریں",
+    "signup": "سائن اپ کریں",
+    "contactInfo": "رابطے کی معلومات",
+    "address": "17 پرنسس روڈ، لندن، گریٹر لندن NW1 8JR، UK",
+    "categories": {
+      "title": "اقسام",
+      "items": [
+        "لیپ ٹاپس اور کمپیوٹرز",
+        "کیمرے اور فوٹو گرافی",
+        "اسمارٹ فونز اور ٹیبلٹس",
+        "ویڈیو گیمز اور کنسولز",
+        "واٹر پروف ہیڈ فونز"
+      ]
+    },
+    "customerCare": {
+      "title": "کسٹمر کیئر",
+      "items": [
+        "میرا اکاؤنٹ",
+        "ڈسکاؤنٹ",
+        "ریٹرن",
+        "آرڈرز کی تاریخ",
+        "آرڈر ٹریکنگ"
+      ]
+    },
+    "pages": {
+      "title": "صفحات",
+      "items": [
+        "بلاگ",
+        "شاپ براؤز کریں",
+        "کیٹیگری",
+        "پہلے سے بنی ہوئی صفحات",
+        "ویژول کمپوزر عناصر",
+        "وو کامرس صفحات"
+      ]
+    }
+  }
+}

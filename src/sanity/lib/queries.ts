@@ -72,7 +72,7 @@ export const getDiscountItems = groq  `*[_type == "product" && name in ["Armchai
  `
 
  export const getTopCategories = groq`
- *[_type == "product" && name in ["Cantilever Chair", "High Quality Modern Customized Plastic Chair", "Varmora Plastic Chair Solid", "Cantilever Chair"]] {
+ *[_type == "product" && name in ["Cantilever Chair", "High Quality Modern Customized Plastic Chair", "Varmora Plastic Chair Solid", "Replica Hans Wegner Wishbone Chair"]] {
    name,
    image {
      asset-> {

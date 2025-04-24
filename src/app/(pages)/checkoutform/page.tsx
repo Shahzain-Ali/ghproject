@@ -1,16 +1,17 @@
+/* eslint-disable @typescript-eslint/no-unused-vars */
 "use client"
 
 import React, { useState } from 'react';
 import * as z from 'zod';
 import { loadStripe } from '@stripe/stripe-js';
-import { Elements, CardElement, useStripe, useElements } from '@stripe/react-stripe-js';
+import { Elements } from '@stripe/react-stripe-js';
 import { useCart } from '@/app/context/cartContext';
 import Image from 'next/image';
-import { client } from '@/sanity/lib/client';
-import { CheckoutSubmission } from '@/app/types/checkOut';
+// import { client } from '@/sanity/lib/client';
+// import { CheckoutSubmission } from '@/app/types/checkOut';
 
 // Stripe configuration
-const stripePromise = loadStripe(process.env.NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY || '');
+const stripePromise = loadStripe("pk_test_51QlT0JBOOSH6BWk9kNoLZUVrwoBiPZfME1cH43Jur4nNvis4GoL5KECaCjX1C3JTOZj9kc1L8RvkYnNvAYEoKRRv00enfkyWlz");
 
 // Validation Schema
 const CheckoutSchema = z.object({
@@ -24,8 +25,6 @@ const CheckoutSchema = z.object({
   country: z.string().min(2, "Country required"),
   postalCode: z.string().min(4, "Postal code required")
 });
-
-
 
 // Interfaces
 export interface CheckoutFormErrors {
@@ -52,78 +51,14 @@ export interface CheckoutFormData {
   postalCode: string;
 }
 
-// Stripe Payment Form Component
-const StripePaymentForm: React.FC<{ 
-  total: number, 
-  onSubmit: (paymentMethod: string) => void,
-  isProcessing: boolean 
-}> = ({ total, onSubmit, isProcessing }) => {
-  const stripe = useStripe();
-  const elements = useElements();
-  const [paymentError, setPaymentError] = useState<string | null>(null);
-
-  const handlePaymentSubmit = async (event: React.FormEvent) => {
-    event.preventDefault();
-
-    if (!stripe || !elements) return;
-
-    const cardElement = elements.getElement(CardElement);
-    if (!cardElement) return;
-
-    const { error, paymentMethod } = await stripe.createPaymentMethod({
-      type: 'card',
-      card: cardElement,
-    });
-
-    if (error) {
-      setPaymentError(error.message || 'Payment processing failed');
-    } else if (paymentMethod) {
-      onSubmit(paymentMethod.id);
-    }
-  };
-
-  return (
-    <form onSubmit={handlePaymentSubmit} className="mt-4">
-      <div className="bg-gray-50 p-4 rounded-lg mb-4">
-        <h3 className="text-lg font-semibold mb-4">Payment Details</h3>
-        <CardElement 
-          options={{
-            style: {
-              base: {
-                fontSize: '16px',
-                color: '#424770',
-                '::placeholder': { color: '#aab7c4' },
-              },
-              invalid: { color: '#9e2146' },
-            },
-          }}
-          className="p-3 border rounded-md"
-        />
-        {paymentError && <div className="text-red-500 mt-2">{paymentError}</div>}
-      </div>
-      <button 
-        type="submit" 
-        disabled={!stripe || isProcessing}
-        className={`w-full text-white py-3 rounded-md mt-4 transition-colors ${
-          isProcessing 
-            ? 'bg-gray-400 cursor-not-allowed' 
-            : 'bg-green-500 hover:bg-green-600'
-        }`}
-      >
-        {isProcessing ? 'Processing...' : `Pay £${total.toFixed(2)}`}
-      </button>
-    </form>
-  );
-};
-
 // Main Checkout Form Component
 const CheckoutForm: React.FC = () => {
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
   const { state, dispatch } = useCart();
   const [errors, setErrors] = useState<CheckoutFormErrors>({});
   const [formData, setFormData] = useState<CheckoutFormData>({
     email: '', firstName: '', lastName: '', phone: '', 
     address: '', apartment: '', city: '', country: '', postalCode: ''
-
   });
 
   const [isPaymentStage, setIsPaymentStage] = useState(false);
@@ -139,21 +74,14 @@ const CheckoutForm: React.FC = () => {
     setFormData(prev => ({ ...prev, [name]: value }));
   };
 
-  // eslint-disable-next-line @typescript-eslint/no-unused-vars
   const handleDetailsSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     try {
       CheckoutSchema.parse(formData);
       
-      const checkoutData: CheckoutSubmission = {
-        _type: 'checkout',
-        ...formData,
-        createdAt: new Date().toISOString()
-      };
-  
-      await client.create(checkoutData);
-      setIsPaymentStage(true);
       setErrors({});
+
+      await handlePaymentSubmit();
     } catch (error) {
       if (error instanceof z.ZodError) {
         const formErrors = error.errors.reduce((acc: CheckoutFormErrors, curr) => {
@@ -167,30 +95,45 @@ const CheckoutForm: React.FC = () => {
     }
   };
 
-  const handlePaymentSubmit = async (paymentMethodId: string) => {
+  const handlePaymentSubmit = async () => {
     setIsProcessing(true);
+    
     try {
-      const response = await fetch('/api/checkout', {
+      // Checkout Session create karne ke liye API call
+      const response = await fetch(`/api/checkout`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
-          paymentMethodId,
-          amount: total * 100,
-          email: formData.email,
           shippingDetails: formData,
           items: state.cart
         })
       });
-
-      const result = await response.json();
-      if (result.success) {
-        setOrderStatus('success');
-        dispatch({ type: 'CLEAR_CART' });
+  
+      if (!response.ok) {
+        throw new Error('Payment request failed');
+      }
+  
+      const data = await response.json();
+      
+      if (data.success && data.sessionId) {
+        // Stripe checkout page par redirect karen
+        const stripe = await stripePromise;
+        if (!stripe) {
+          throw new Error('Stripe failed to initialize');
+        }
+        
+        const { error } = await stripe.redirectToCheckout({
+          sessionId: data.sessionId
+        });
+        
+        if (error) {
+          throw error;
+        }
       } else {
-        setOrderStatus('error');
+        throw new Error(data.error || 'Payment processing failed');
       }
     } catch (error) {
-      console.error('Checkout error', error);
+      console.error('Checkout error:', error);
       setOrderStatus('error');
     } finally {
       setIsProcessing(false);
@@ -212,6 +155,12 @@ const CheckoutForm: React.FC = () => {
         <div className="text-center p-8 bg-red-50 rounded-lg">
           <h2 className="text-2xl font-bold text-red-600 mb-4">Payment Failed</h2>
           <p>There was an issue processing your payment. Please try again.</p>
+          <button 
+            onClick={() => setOrderStatus('idle')}
+            className="mt-4 bg-blue-500 text-white py-2 px-4 rounded hover:bg-blue-600"
+          >
+            Try Again
+          </button>
         </div>
       );
     }
@@ -224,32 +173,6 @@ const CheckoutForm: React.FC = () => {
     if (orderStatus !== 'idle') {
       return <OrderStatus />;
     }
-    const handleDetailsSubmit = async (e: React.FormEvent) => {
-      e.preventDefault();
-      try {
-        CheckoutSchema.parse(formData);
-        
-        const checkoutData: CheckoutSubmission = {
-          _type: 'checkout',
-          ...formData,
-          createdAt: new Date().toISOString()
-        };
-    
-        await client.create(checkoutData);
-        setIsPaymentStage(true);
-        setErrors({});
-      } catch (error) {
-        if (error instanceof z.ZodError) {
-          const formErrors = error.errors.reduce((acc: CheckoutFormErrors, curr) => {
-            const path = curr.path[0] as keyof CheckoutFormErrors;
-            acc[path] = curr.message;
-            return acc;
-          }, {});
-          setErrors(formErrors);
-        }
-        console.error('Submission error:', error);
-      }
-    };
 
     return (
       <div className="grid lg:grid-cols-2 gap-8">
@@ -393,19 +316,27 @@ const CheckoutForm: React.FC = () => {
                 <button
                   type="submit"
                   className="w-full bg-green-500 text-white py-3 rounded-md mt-6 hover:bg-green-600 transition-colors"
-                  onClick={() => window.location.href = '/paymentForm'}>
-
-
+                >
                   Continue to Payment
                 </button>
               </div>
             </form>
           ) : (
-            <StripePaymentForm 
-              total={total} 
-              onSubmit={handlePaymentSubmit}
-              isProcessing={isProcessing}
-            />
+            <div className="bg-gray-50 p-4 rounded-lg">
+              <h3 className="text-lg font-semibold mb-4">Payment Details</h3>
+              <p className="mb-4">Click the button below to proceed to the secure payment page.</p>
+              <button 
+                onClick={handlePaymentSubmit}
+                disabled={isProcessing}
+                className={`w-full text-white py-3 rounded-md transition-colors ${
+                  isProcessing 
+                    ? 'bg-gray-400 cursor-not-allowed' 
+                    : 'bg-green-500 hover:bg-green-600'
+                }`}
+              >
+                {isProcessing ? 'Processing...' : `Pay £${total.toFixed(2)}`}
+              </button>
+            </div>
           )}
         </div>
 
@@ -416,14 +347,13 @@ const CheckoutForm: React.FC = () => {
             {state.cart.map((item) => (
               <div key={item._id} className="flex justify-between items-center mb-4 pb-4 border-b">
                 <div className="flex items-center">
-                 
-                <Image
-                  src={item.image?.asset ? item.image.asset.url : '/images/fallback-image.png'}
-                  alt={item.name}
-                  width={64}
-                  height={64}
-                  className="object-cover mr-4 rounded-md"
-                />
+                  <Image
+                    src={item.image?.asset ? item.image.asset.url : '/images/fallback-image.png'}
+                    alt={item.name}
+                    width={64}
+                    height={64}
+                    className="object-cover mr-4 rounded-md"
+                  />
                   <div>
                     <h3 className="font-medium">{item.name}</h3>
                     <p className="text-gray-500">{item.description}</p>
@@ -435,7 +365,7 @@ const CheckoutForm: React.FC = () => {
                 </div>
               </div>
             ))}
-           <div className="mt-4">
+            <div className="mt-4">
               <div className="flex justify-between mb-2">
                 <span>Subtotal</span>
                 <span>£{subtotal.toFixed(2)}</span>

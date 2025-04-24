@@ -6,6 +6,7 @@ import Navbar from "./components/NavBar";
 import Footer from "./components/Footer";
 import { CartProvider } from '@/app/context/cartContext';
 import { WishlistProvider } from '@/app/context/wishlistContext';
+import ResetLanguage from "./components/ResetLanguage";
 
 export default function MainLayout({
   children
@@ -21,11 +22,13 @@ export default function MainLayout({
       <WishlistProvider>
       {!isStudioPage && (
         <>
+          <ResetLanguage />
           <Header/>
           <Navbar/>
         </>
       )}
-      {children}
+      {children || <p>Children are missing</p>}
+
       {!isStudioPage && <Footer/>}
       </WishlistProvider>
     </CartProvider>

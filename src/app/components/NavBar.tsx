@@ -1,31 +1,31 @@
-"use client";
+"use client"
 import Link from "next/link";
 import { useState, useEffect, useRef } from "react";
 import { usePathname } from "next/navigation";
 import '@fortawesome/fontawesome-free/css/all.min.css';
+import { useTranslations } from "next-intl";
 
 function Navbar() {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const navRef = useRef<HTMLDivElement>(null);
+  const hamburgerRef = useRef<HTMLButtonElement>(null);
   const pathname = usePathname();
+  const t = useTranslations('Navigation')
 
   useEffect(() => {
     const handleClickOutside = (event: MouseEvent) => {
-      if (navRef.current && !navRef.current.contains(event.target as Node)) {
+      if (
+        navRef.current && !navRef.current.contains(event.target as Node) && 
+        hamburgerRef.current && !hamburgerRef.current.contains(event.target as Node)
+      ) {
         setIsMobileMenuOpen(false);
       }
     };
-
-    const handleScroll = () => {
-      setIsMobileMenuOpen(false);
-    };
-
+  
     document.addEventListener('mousedown', handleClickOutside);
-    document.addEventListener('scroll', handleScroll);
-
+  
     return () => {
-      document.removeEventListener('mousedown', handleClickOutside);
-      document.removeEventListener('scroll', handleScroll);
+      document.removeEventListener('mousedown', handleClickOutside); // Properly remove event listener
     };
   }, []);
 
@@ -33,10 +33,16 @@ function Navbar() {
     setIsMobileMenuOpen(false);
   }, [pathname]);
 
+  const toggleMobileMenu = (e: React.MouseEvent) => {
+    e.preventDefault(); // Prevent default behavior
+    e.stopPropagation(); // Stop event from bubbling
+    setIsMobileMenuOpen(prevState => !prevState);
+  };
+
   const navLinks = [
     {
       href: "/home",
-      label: "Home",
+      label: t('Home'),
       dropdown: [
         { label: "Trending Products", href: "/trendingproduct" },
         { label: "Grid Default", href: "/griddefault" },
@@ -44,16 +50,16 @@ function Navbar() {
         { label: "Refund Product", href: "/refundableproduct" },
       ],
     },
-    { href: "/about", label: "Pages" },
-    { href: "/products", label: "Products" },
-    { href: "/blog", label: "Blog" },
-    { href: "/shop", label: "Shop" },
-    { href: "/contact", label: "Contact" },
+    { href: "/about", label: t('Pages') },
+    { href: "/products", label: t('Products')  },
+    { href: "/blog", label: t('Blog') },
+    { href: "/shop", label: t('Shop')  },
+    { href: "/contact", label: t('Contact') },
   ];
 
   return (
-    <nav className="border-b-2 " ref={navRef}>
-      <div className="max-w-7xl mx-auto px-4 h-[70px]  lg:w-[90%]">
+    <nav className="border-b-2" ref={navRef}>
+      <div className="max-w-7xl mx-auto px-4 h-[70px] lg:w-[90%]">
         <div className="flex items-center justify-between h-full">
           {/* Logo */}
           <div className="flex-shrink-0">
@@ -62,18 +68,26 @@ function Navbar() {
             </h2>
           </div>
 
-          {/* Mobile Menu Button */}
-          <div className="md:hidden lg:hidden">
+          {/* Mobile Menu Button with Hamburger Style */}
+          <div className="md:hidden lg:hidden mr-4">
             <button
-              onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
-              className="p-2 text-black focus:outline-none"
+              ref={hamburgerRef}
+              onClick={toggleMobileMenu}
+              className="relative flex items-center justify-center w-10 h-8 cursor-pointer z-50 focus:outline-none"
             >
-              <i className="fa fa-bars"></i>
+              <div 
+                className={`
+                  w-[30px] h-[3px] bg-black rounded-md relative transition-all duration-500 ease-in-out 
+                  ${isMobileMenuOpen ? 'bg-transparent before:rotate-45 before:translate-x-[5px] before:translate-y-[5px] after:-rotate-45 after:translate-x-[5px] after:-translate-y-[5px]' : ''}
+                  before:content-[''] before:absolute before:w-[30px] before:h-[3px] before:bg-black before:rounded-md before:transition-all before:duration-500 before:ease-in-out before:-translate-y-[10px]
+                  after:content-[''] after:absolute after:w-[30px] after:h-[3px] after:bg-black after:rounded-md after:transition-all after:duration-500 after:ease-in-out after:translate-y-[10px]
+                `} 
+              />
             </button>
           </div>
 
           {/* Desktop Navigation */}
-          <div className="hidden md:flex md:items-center md:space-x-4 lg:flex lg:items-center lg:space-x-8  flex-grow justify-center ">
+          <div className="hidden md:flex md:items-center md:space-x-4 lg:flex lg:items-center lg:space-x-8 flex-grow justify-center ">
             <ul className="flex justify-center space-x-6 lg:space-x-12 lg:text-[18px] lg:w-[100%] ">
               {navLinks.map((link) => (
                 <li key={link.href} className="relative group">
@@ -103,7 +117,7 @@ function Navbar() {
           </div>
 
           {/* Search Bar */}
-          <div className="hidden md:block lg:block ">
+          <div className="hidden md:block lg:block">
             <div className="relative">
               <input
                 type="text"
@@ -120,8 +134,9 @@ function Navbar() {
           <div className={`
             md:hidden 
             lg:hidden
+            opacity-90
             fixed inset-y-0 left-0 w-64 
-            bg-white shadow-lg transform transition-transform duration-300 ease-in-out z-50
+            bg-white shadow-lg transform transition-transform duration-300 ease-in-out z-40
             ${isMobileMenuOpen ? 'translate-x-0' : '-translate-x-full'}
           `}>
             <div className="p-6">

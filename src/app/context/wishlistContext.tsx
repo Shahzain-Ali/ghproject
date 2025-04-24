@@ -3,10 +3,9 @@
 import React, { createContext, useContext, useReducer, useEffect, ReactNode } from 'react';
 import { Product } from '../types/Product';
 
-// Fixed interface by adding a specific property for wishlist items
 export interface WishlistItem extends Product {
-    addedAt: Date;  // Track when item was added to wishlist
-    isWishlisted: boolean; // Track wishlist status
+  addedAt: Date;
+  isWishlisted: boolean;
 }
 
 interface WishlistState {
@@ -17,7 +16,9 @@ type WishlistAction =
   | { type: 'ADD_TO_WISHLIST'; payload: Product }
   | { type: 'REMOVE_FROM_WISHLIST'; payload: string }
   | { type: 'CLEAR_WISHLIST' }
-  | { type: 'SET_WISHLIST'; payload: WishlistItem[] };
+  | { type: 'SET_WISHLIST'; payload: WishlistItem[] }
+  | { type: 'UPDATE_WISHLIST'; payload: WishlistItem }
+  | { type: 'RESET_WISHLIST' };
 
 interface WishlistContextType {
   state: WishlistState;
@@ -31,8 +32,6 @@ const initialState: WishlistState = {
 const WishlistContext = createContext<WishlistContextType | undefined>(undefined);
 
 function wishlistReducer(state: WishlistState, action: WishlistAction): WishlistState {
-  let newState: WishlistState;
-
   switch (action.type) {
     case 'ADD_TO_WISHLIST': {
       const existingItem = state.wishlist.find(item => item._id === action.payload._id);
@@ -48,68 +47,77 @@ function wishlistReducer(state: WishlistState, action: WishlistAction): Wishlist
         isWishlisted: true
       };
 
-      newState = {
+      return {
         ...state,
         wishlist: [...state.wishlist, wishlistItem]
       };
-      break;
     }
 
     case 'REMOVE_FROM_WISHLIST': {
-      newState = {
+      return {
         ...state,
         wishlist: state.wishlist.filter(item => item._id !== action.payload)
       };
-      break;
+    }
+
+    case 'UPDATE_WISHLIST': {
+      return {
+        ...state,
+        wishlist: state.wishlist.map(item =>
+          item._id === action.payload._id ? action.payload : item
+        )
+      };
     }
 
     case 'SET_WISHLIST': {
-      newState = {
+      // Ensure all items have proper properties
+      const wishlistWithDates = action.payload.map(item => ({
+        ...item,
+        addedAt: item.addedAt ? new Date(item.addedAt) : new Date(),
+        isWishlisted: true
+      }));
+      
+      return {
         ...state,
-        wishlist: action.payload
+        wishlist: wishlistWithDates
       };
-      break;
     }
 
-    case 'CLEAR_WISHLIST': {
-      newState = initialState;
-      break;
-    }
+    case 'CLEAR_WISHLIST':
+    case 'RESET_WISHLIST':
+      return initialState;
 
     default:
       return state;
   }
-
-  try {
-    localStorage.setItem('wishlist', JSON.stringify(newState.wishlist));
-  } catch (error) {
-    console.error('Failed to save wishlist to localStorage:', error);
-  }
-
-  return newState;
 }
 
 export function WishlistProvider({ children }: { children: ReactNode }) {
   const [state, dispatch] = useReducer(wishlistReducer, initialState);
 
+  // Load wishlist from localStorage on initial mount
   useEffect(() => {
     try {
       const savedWishlist = localStorage.getItem('wishlist');
       if (savedWishlist) {
         const parsedWishlist = JSON.parse(savedWishlist);
         if (Array.isArray(parsedWishlist)) {
-          // Convert dates back to Date objects when loading from localStorage
-          const wishlistWithDates = parsedWishlist.map(item => ({
-            ...item,
-            addedAt: new Date(item.addedAt)
-          }));
-          dispatch({ type: 'SET_WISHLIST', payload: wishlistWithDates });
+          dispatch({ type: 'SET_WISHLIST', payload: parsedWishlist });
         }
       }
     } catch (error) {
       console.error('Failed to load wishlist from localStorage:', error);
     }
   }, []);
+
+  // Save wishlist to localStorage whenever it changes
+  useEffect(() => {
+    try {
+      localStorage.setItem('wishlist', JSON.stringify(state.wishlist));
+    } catch (error) {
+      console.error('Failed to save wishlist to localStorage:', error);
+    }
+  }, [state.wishlist]);
 
   return (
     <WishlistContext.Provider value={{ state, dispatch }}>

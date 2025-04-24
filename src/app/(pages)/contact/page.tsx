@@ -84,12 +84,12 @@ export default function ContactPage() {
             <div className="mb-12">
               <h2 className="text-2xl font-bold text-[#151875] mb-6">Contact Way</h2>
               <div className="grid gap-6 sm:grid-cols-2">
-                <Image src="/Group_124 (8).png" alt="Contact information" className="w-full" />
+                <Image src="/Group_124 (8).png" alt="Contact information" width={500} height={400} className="w-full" />
               </div>
             </div>
 
             <div className="relative">
-              <Image src="/Group_124 (1).png" alt="Contact illustration" className="w-full" />
+              <Image src="/Group_124 (1).png" alt="Contact illustration" width={500} height={400}  className="w-full" />
             </div>
           </div>
         </div>

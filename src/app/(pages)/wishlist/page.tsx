@@ -1,5 +1,5 @@
-"use client";
-// import { useEffect } from "react";
+'use client';
+
 import Image from "next/image";
 import Link from "next/link";
 import { Trash2, ShoppingCart } from 'lucide-react';
@@ -9,7 +9,7 @@ import { useCart } from "@/app/context/cartContext";
 
 const WishlistPage = () => {
   const { state: wishlistState, dispatch: wishlistDispatch } = useWishlist();
-  const { dispatch: cartDispatch } = useCart();
+  const { state: cartState, dispatch: cartDispatch } = useCart();
 
   const removeFromWishlist = (productId: string) => {
     wishlistDispatch({ type: 'REMOVE_FROM_WISHLIST', payload: productId });
@@ -20,26 +20,39 @@ const WishlistPage = () => {
   };
 
   const addToCart = (product: Product) => {
-    cartDispatch({
-      type: 'ADD_TO_CART',
-      payload: {
-        ...product,
-        quantity: 1
-      }
-    });
+    if (!product._id) return; // safety check
+
+    const isAlreadyInCart = cartState.cart.some(item => item._id === product._id);
+    if (isAlreadyInCart) {
+      cartDispatch({
+        type: 'ADD_TO_CART',
+        payload: {
+          ...product,
+          quantity: 1
+        }
+      });
+    } else {
+      cartDispatch({
+        type: 'ADD_TO_CART',
+        payload: {
+          ...product,
+          quantity: 1
+        }
+      });
+    }
+
+    // Optionally remove from wishlist after adding to cart
+    // removeFromWishlist(product._id);
   };
 
   return (
     <div className="container mx-auto p-4">
       <div className="flex justify-between items-center mb-6">
-        <div className="flex items-center gap-3">
-          <h1 className="text-2xl font-bold">My Wishlist</h1>
-        </div>
+        <h1 className="text-2xl font-bold">My Wishlist</h1>
         {wishlistState.wishlist.length > 0 && (
           <button
             onClick={resetWishlist}
             className="px-4 py-2 bg-red-600 text-white rounded-md hover:bg-red-700 transition"
-            aria-label="Reset wishlist"
           >
             Reset Wishlist
           </button>

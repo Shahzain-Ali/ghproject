@@ -55,22 +55,24 @@ const ProductsContent = () => {
   };
 
   return (
-    <div className="container mx-auto px-4">
+    <div className="mx-auto px-4 customsm:px-1 ">
       <div className="flex justify-between items-center mb-6">
-        <h1 className="text-2xl font-bold">Products</h1>
-        <div className="flex items-center space-x-4">
+        <h1 className="text-2xl md:text-4xl lg:text-4xl font-bold smm:text-xl customsm:text-lg">Explore Our Collection</h1>
+        <div className="flex flex-col justify-start items-end space-y-4 ">
           <input 
             type="text" 
             placeholder="Search products..." 
             value={searchTerm}
             onChange={(e) => handleSearchChange(e.target.value)}
             onKeyDown={handleSearchSubmit}
-            className="border px-2 py-1 rounded"
+            className="border px- text-center py-1 rounded"
           />
           <FilteringData onProductsChange={handleProductsChange} />
         </div>
       </div>
-      <ProductListing allProducts={products} />
+      <div>
+        <ProductListing allProducts={products} />
+      </div>
     </div>
   );
 };

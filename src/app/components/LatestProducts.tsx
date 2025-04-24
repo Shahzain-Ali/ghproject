@@ -7,6 +7,7 @@ import { motion } from 'framer-motion';
 import { client } from "@/sanity/lib/client";
 import { Product } from "@/app/types/Product";
 import { useCart } from "@/app/context/cartContext";
+import { useTranslations } from "next-intl";
 
 export const getLatestProduct = `*[_type == "product" && name in [
   "Matilda Velvet Chair – Pink", 
@@ -34,14 +35,17 @@ export const getLatestProduct = `*[_type == "product" && name in [
 const LatestProducts = () => {
   const { dispatch, state } = useCart();
   const [products, setProducts] = useState<Product[]>([]);
-  const [activeCategory, setActiveCategory] = useState("New Arrival");
+  // const [activeCategory, setActiveCategory] = useState("New Arrival");
   const [hoveredProduct, setHoveredProduct] = useState<string | null>(null);
   const [wishlistedProducts, setWishlistedProducts] = useState<Product[]>([]);
   const [selectedProduct, setSelectedProduct] = useState<Product | null>(null);
   const [compareProduct, setCompareProduct] = useState<Product | null>(null);
   const [isCompareModalOpen, setIsCompareModalOpen] = useState(false);
+  // Add toast state
+  const [toast, setToast] = useState({ show: false, message: '', type: '' });
 
   const categories = ["New Arrival", "Best Seller", "Featured", "Offer"];
+  const t = useTranslations()
 
   useEffect(() => {
     const fetchLatestProducts = async () => {
@@ -64,12 +68,30 @@ const LatestProducts = () => {
     loadWishlist();
   }, []);
 
+  // Add toast timer effect
+  useEffect(() => {
+    if (toast.show) {
+      const timer = setTimeout(() => {
+        setToast({ show: false, message: '', type: '' });
+      }, 3000);
+      
+      return () => clearTimeout(timer);
+    }
+  }, [toast]);
+
+  // Toast helper function
+  const showToast = (message: string, type: string) => {
+    setToast({ show: true, message, type });
+  };
+
   const handleCartToggle = (product: Product) => {
     const isInCart = isProductInCart(product._id);
     if (isInCart) {
       dispatch({ type: 'REMOVE_FROM_CART', payload: product._id });
+      showToast(`Removed ${product.name} from cart`, 'info');
     } else {
       dispatch({ type: 'ADD_TO_CART', payload: { ...product, quantity: 1 }});
+      showToast(`Added ${product.name} to cart`, 'success');
     }
   };
 
@@ -84,6 +106,14 @@ const LatestProducts = () => {
         ? prev.filter(item => item._id !== product._id)
         : [...prev, product];
       localStorage.setItem('wishlist', JSON.stringify(updatedWishlist));
+      
+      // Show toast message
+      if (isAlreadyWishlisted) {
+        showToast(`Removed ${product.name} from wishlist`, 'info');
+      } else {
+        showToast(`Added ${product.name} to wishlist`, 'success');
+      }
+      
       return updatedWishlist;
     });
   };
@@ -95,8 +125,10 @@ const LatestProducts = () => {
       setCompareProduct(null);
     } else if (!selectedProduct) {
       setSelectedProduct(product);
+      showToast(`Selected ${product.name} for comparison`, 'info');
     } else if (!compareProduct) {
       setCompareProduct(product);
+      showToast(`Added ${product.name} to comparison`, 'info');
     }
   };
 
@@ -105,31 +137,45 @@ const LatestProducts = () => {
   return (
     <div className="w-full px-4 md:px-6 lg:px-8 py-12">
       <div className="max-w-7xl mx-auto">
+        {/* Toast Notification */}
+        {toast.show && (
+          <motion.div
+            initial={{ opacity: 0, y: -20 }}
+            animate={{ opacity: 1, y: 0 }}
+            exit={{ opacity: 0 }}
+            className={`fixed top-4 right-4 z-50 px-4 py-2 rounded-md shadow-lg ${
+              toast.type === 'success' ? 'bg-green-500 text-white' : 'bg-blue-500 text-white'
+            }`}
+          >
+            {toast.message}
+          </motion.div>
+        )}
+
         {/* Header with Compare Button */}
         <div className="relative mb-8">
           <div className="text-center">
-            <h2 className="text-2xl md:text-3xl font-bold text-[#151875] mb-4">
-              Latest Products
+            <h2 className="text-2xl md:text-3xl lg:text-4xl  font-bold text-[#151875] mb-4">
+              {t(`latestProducts.heading`)}
             </h2>
             <ul className="flex flex-wrap justify-center gap-4 md:gap-6 text-sm text-gray-500 mb-6">
               {categories.map((category) => (
                 <li
                   key={category}
-                  onClick={() => setActiveCategory(category)}
-                  className={`cursor-pointer transition-colors ${
-                    activeCategory === category
-                      ? "text-[#FB2E86] border-b border-b-[#FB2E86]"
-                      : "hover:text-[#FB2E86] hover:border-b hover:border-b-[#FB2E86]"
-                  }`}
+                  className={`cursor-pointer transition-colors hover:text-[#FB2E86] hover:border-b hover:border-b-[#FB2E86]`}
                 >
-                  {category}
+                   {t(`latestProducts.${category}`)}
                 </li>
               ))}
             </ul>
           </div>
           <div className="absolute right-0 top-0 md:top-1/2 md:-translate-y-1/2 customsm:relative customsm:text-center customsm:mt-8 custom:text-center smm:relative smm:mt-8 smm:text-center">
             <button
-              onClick={() => canCompare && setIsCompareModalOpen(true)}
+              onClick={() => {
+                if (canCompare) {
+                  setIsCompareModalOpen(true);
+                  showToast('Comparing products', 'info');
+                }
+              }}
               disabled={!canCompare}
               className={`px-3 py-1.5 text-sm rounded transition-colors ${
                 canCompare
@@ -151,7 +197,7 @@ const LatestProducts = () => {
               onMouseEnter={() => setHoveredProduct(product._id)}
               onMouseLeave={() => setHoveredProduct(null)}
             >
-              <div className="relative aspect-square p-4 bg-[#F7F7F7] rounded-t-lg smm:w-[100%] ">
+              <div className="relative aspect-square p-4 bg-[#F7F7F7] rounded-t-lg smm:w-[100%] border-4 border-purple-200">
                 {product.image && (
                   <Image
                     src={product.image.asset.url}
@@ -234,9 +280,9 @@ const LatestProducts = () => {
                 )}
               </div>
 
-              <div className="p-4">
+              <div className="p-4 border-4 border-pink-200">
                 <h3 className="text-sm md:text-base font-medium text-[#151875] mb-1">
-                  {product.name}
+                  {t(`latestProducts.${product.name}`)}
                 </h3>
                 <div className="flex items-center justify-between">
                   <span className="text-sm md:text-base font-bold text-[#151875]">
@@ -273,7 +319,7 @@ const LatestProducts = () => {
                 </button>
               </div>
               <div className="overflow-x-auto">
-                <table className="w-full border-collapse">
+                <table className="w-full border-collapse border-">
                   <thead>
                     <tr className="bg-gray-50">
                       <th className="border p-2 md:p-4 text-left">Attribute</th>

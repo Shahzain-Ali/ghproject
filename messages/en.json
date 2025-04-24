@@ -1,0 +1,157 @@
+{
+  "HomePage": {
+    "title": "New Furniture Collection Trends in 2024",
+    "description": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Magna in est adipiscing in phasellus non in justo.",
+    "buttonText": "Shop Now",
+    "bestFurniture": "Best Furniture For Your Castle...",
+    "lampAlt": "Decorative lamp"
+  },
+  "featuredProducts": {
+    "heading":"Featured Products",
+    "Varmora Plastic Chair Solid": "Varmora Plastic Chair Solid",
+    "Hans Wegner Style Three-Legged Shell Chair": "Hans Wegner Style Three-Legged Shell Chair",
+    "Tribù Elio Chair": "Tribù Elio Chair",
+    "Sobuy Folding Chair Wooden": "Sobuy Folding Chair Wooden"
+  },
+  "trendingProducts": {
+    "heading":"Trending Products",
+    "Cantilever Chair": "Cantilever Chair",
+    "Nordic Net Red Chair": "Nordic Net Red Chair",
+    "Futuristic Sleek Modern Chair": "Futuristic Sleek Modern Chair",
+    "Sobuy Folding Chair Wooden": "Sobuy Folding Chair Wooden",
+    "Liberty Wood 63' Floating Entertainment Center": "Liberty Wood 63' Floating Entertainment Center",
+    "Replica Hans Wegner Wishbone Chair": "Replica Hans Wegner Wishbone Chair",
+    "Nautilus Lounge Chair": "Nautilus Lounge Chair",
+    "Alpha Chair – Solid Ebonised Oak": "Alpha Chair – Solid Ebonised Oak",
+    "Discount":"23% off in all products",
+    "buttonText": "Shop Now",
+    "viewCollection": "View Collection"
+    
+
+  },
+  "latestProducts": {
+    "heading": "Latest Products",
+    "Matilda Velvet Chair – Pink": "Matilda Velvet Chair – Pink",
+    "Rapson Thirty-Nine Guest Chair": "Rapson Thirty-Nine Guest Chair",
+    "Varmora Plastic Chair Solid": "Varmora Plastic Chair Solid",
+    "Cozy Armchair": "Cozy Armchair",
+    "New Arrival": "New Arrival",
+    "Best Seller": "Best Seller",
+    "Featured": "Featured",
+    "Offer": "Offer"
+  },
+  "shopexOffer": {
+    "heading": "Shopex Offer",
+    "Free Delivery": {
+      "title": "Free Delivery",
+      "description": "Get your favorite products delivered at no extra cost!"
+    },
+    "Cashback": {
+      "title": "Cashback", 
+      "description": "Shop and get the best value with exciting cashback rewards!"
+    },
+    "Premium Quality": {
+      "title": "Premium Quality",
+      "description": "Guaranteed durability, excellence, and top-notch quality!"
+    },
+    "24/7 Support": {
+      "title": "24/7 Support", 
+      "description": "Our support team is available anytime to assist you!"
+    }
+  },
+  "stylishSofa": {
+    "name": "Stylish Golden Metal Legs Velvet Sofa",
+    "description": "A luxurious armchair with velvet fabric and golden metal legs.",
+    "features": {
+        "reinforcedStructure": "Arms, backs, and seats are structurally reinforced.",
+        "solidWoodFrame": "All frames constructed with hardwood solids and laminates."
+    }
+  },
+    "discountItem": {
+        "title": "Discount Item",
+        "offer": "20% Discount Of All Products",
+        "productName": "Eams Sofa Compact",
+        "description": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Eu eget feugiat habitasse nec, bibendum condimentum.",
+        "features": {
+            "material": "Material expose like metals",
+            "colors": "Simple neutral colours",
+            "design": "Clear lines and geometric figures",
+            "repeatMaterial": "Material expose like metals"
+        },
+        "button": "Shop Now",
+        "categories": ["Wood Chair", "Plastic Chair", "Sofa Collection"]
+    },
+
+    "topCategories": {
+      "heading":"Top Categories",
+      "Cantilever Chair": "Cantilever Chair",
+      "High Quality Modern Customized Plastic Chair": "High Quality Modern Customized Plastic Chair",
+      "Varmora Plastic Chair Solid": "Varmora Plastic Chair Solid",
+      "Replica Hans Wegner Wishbone Chair": "Replica Hans Wegner Wishbone Chair"
+    },
+    "latestBlog": {
+        "heading": "Latest Blog",
+        "author1": "Shahzain Ali",
+        "date1": "21 August, 2024",
+        "title1": "Top Essential Trends in 2024",
+        "description1": "More of this less hello samlande lied much over tightly circa horse taped mightly",
+        "author2": "Jessica",
+        "date2": "21 August, 2024",
+        "title2": "Top Essential Trends in 2025",
+        "description2": "More of this less hello samlande lied much over tightly circa horse taped mightly",
+        "author3": "Sheroz Ali",
+        "date3": "21 August, 2024",
+        "title3": "Top Essential Trends in 2024",
+        "description3": "More of this less hello samlande lied much over tightly circa horse taped mightly",
+        "readMore": "Read More"
+  }
+,
+
+  "Navigation": {
+    "heading":"ShopexOffer",
+    "Home": "Home",
+    "Pages": "Pages",
+    "Products": "Products",
+    "Blog": "Blog",
+    "Shop": "Shop",
+    "Contact": "Contact"
+  },
+  "footer": {
+    "brand": "Hekto",
+    "emailPlaceholder": "Enter Email Address",
+    "signup": "Sign-Up",
+    "contactInfo": "Contact Info",
+    "address": "17 Princess Road, London, Greater London NW1 8JR, UK",
+    "categories": {
+      "title": "Categories",
+      "items": [
+        "Laptops & Computers",
+        "Cameras & Photography",
+        "Smart Phones & Tablets",
+        "Video Games & Consoles",
+        "Waterproof Headphones"
+      ]
+    },
+    "customerCare": {
+      "title": "Customer Care",
+      "items": [
+        "My Account",
+        "Discount",
+        "Returns",
+        "Orders History",
+        "Order Tracking"
+      ]
+    },
+    "pages": {
+      "title": "Pages",
+      "items": [
+        "Blog",
+        "Browse the Shop",
+        "Category",
+        "Pre-Built Pages",
+        "Visual Composer Elements",
+        "WooCommerce Pages"
+      ]
+    }
+  }
+}
