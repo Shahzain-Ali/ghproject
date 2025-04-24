@@ -6,7 +6,9 @@ import { Product } from '@/app/types/Product';
 import { urlFor } from '@/sanity/lib/image';
 import { useCart } from '@/app/context/cartContext';
 import { motion } from 'framer-motion';
-import { AlertCircle, ShoppingCart, Zap } from 'lucide-react';
+import { AlertCircle, Link as  ShoppingCart, Zap } from 'lucide-react';
+// import Link from 'next/link';
+import { useRouter } from 'next/navigation';
 
 interface ProductClientProps {
   product: Product;
@@ -14,6 +16,7 @@ interface ProductClientProps {
 
 const ProductClient: React.FC<ProductClientProps> = ({ product }) => {
   const { dispatch } = useCart();
+  const router = useRouter();
   const [quantity, setQuantity] = useState(1);
   const [error, setError] = useState<string | null>(null);
 
@@ -64,6 +67,22 @@ const ProductClient: React.FC<ProductClientProps> = ({ product }) => {
     });
   };
 
+  const handleBuyNow = () => {
+    if (error) return;
+    
+    // First add the product to cart
+    dispatch({ 
+      type: 'ADD_TO_CART', 
+      payload: {
+        ...product,
+        quantity: quantity,
+      }
+    });
+    
+    // Then redirect to checkout
+    router.push('/checkoutform');
+  };
+
   const imageUrl = product.image?.asset 
   ? urlFor(product.image.asset)
     .width(800)
@@ -77,9 +96,9 @@ const ProductClient: React.FC<ProductClientProps> = ({ product }) => {
       initial={{ opacity: 0, scale: 0.95 }}
       animate={{ opacity: 1, scale: 1 }}
       transition={{ duration: 0.3 }}
-      className="bg-gradient-to-br from-gray-50 to-gray-100 min-h-screen flex flex-col  items-center p-6 border-4 border-bl"
+      className="bg-gradient-to-br from-gray-50 to-gray-100 min-h-screen flex flex-col items-center p-6 border-4 border-bl"
     >
-      <div className="max-w-5xl h-[45rem] w-full bg-white rounded-2xl shadow-2xl overflow-hidden">
+      <div className="max-w-5xl h-[45rem] w-full bg-white rounded-2xl shadow-2xl overflow-hidden border-4">
         <div className="p-8 grid md:grid-cols-2 lg:grid-cols-2 gap-10">
           {/* Image Section */}
           <div className="space-y-6">
@@ -191,7 +210,9 @@ const ProductClient: React.FC<ProductClientProps> = ({ product }) => {
                 <motion.button
                   whileHover={{ scale: 1.05 }}
                   whileTap={{ scale: 0.95 }}
-                  className="flex items-center justify-center space-x-2 py-3 bg-green-600 text-white rounded-lg hover:bg-green-700 transition"
+                  onClick={handleBuyNow}
+                  disabled={!!error}
+                  className="flex items-center justify-center space-x-2 py-3 bg-green-600 text-white rounded-lg hover:bg-green-700 transition disabled:opacity-50"
                 >
                   <Zap size={20} />
                   <span>Buy Now</span>
