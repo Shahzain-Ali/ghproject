@@ -170,9 +170,9 @@ const Header = () => {
               </div>
             ) : (
               <SignInButton>
-                <div className="flex items-center gap-2 cursor-pointer">
+                <div className="flex items-center gap-2 cursor-pointer hover:border-b-2 ">
                   <h1 className="text-sm customsm:text-[11px] smm:text-[12px] sm:text-base font-semibold">Login</h1>
-                  <FiUser className="w-4 h-4 customsm:w-3" />
+                  <FiUser className="w-4 h-4 customsm:w-3 " />
                 </div>
               </SignInButton>
             )}
