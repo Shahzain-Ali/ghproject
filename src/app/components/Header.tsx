@@ -7,9 +7,9 @@ import { FaChevronDown } from "react-icons/fa6";
 import { LuShoppingCart } from "react-icons/lu";
 import { Josefin_Sans } from "next/font/google";
 import { useCart } from '@/app/context/cartContext';
-import { ClerkLoaded, SignInButton, useUser } from "@clerk/nextjs";
+import { ClerkLoaded, SignInButton, useUser, SignOutButton } from "@clerk/nextjs";
 import Link from "next/link";
-import { Check, ChevronDown, Globe, Heart } from "lucide-react";
+import { Check, ChevronDown, Globe, Heart, LogOut } from "lucide-react";
 import { useWishlist } from "../context/wishlistContext";
 import Cookies from "js-cookie";
 import { useRouter } from "next/navigation";
@@ -23,6 +23,7 @@ const Header = () => {
   const router = useRouter();
   const [currentLocale, setCurrentLocale] = useState('en');
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
+  const [isUserMenuOpen, setIsUserMenuOpen] = useState(false);
 
   const languages = [
     { code: 'en', name: 'English', nativeName: 'English' },
@@ -45,6 +46,24 @@ const Header = () => {
     setIsDropdownOpen(false);
     router.refresh();
   };
+
+  // Close dropdowns when clicking outside
+  useEffect(() => {
+    const handleClickOutside = (event: MouseEvent) => {
+      const target = event.target as HTMLElement;
+      if (!target.closest('.user-menu-container') && isUserMenuOpen) {
+        setIsUserMenuOpen(false);
+      }
+      if (!target.closest('.language-dropdown') && isDropdownOpen) {
+        setIsDropdownOpen(false);
+      }
+    };
+
+    document.addEventListener('mousedown', handleClickOutside);
+    return () => {
+      document.removeEventListener('mousedown', handleClickOutside);
+    };
+  }, [isUserMenuOpen, isDropdownOpen]);
 
   const currentLanguage = languages.find(lang => lang.code === currentLocale) || languages[0];
 
@@ -69,7 +88,7 @@ const Header = () => {
         {/* Right Section */}
         <div className="flex flex-wrap items-center justify-center gap-4 customsm:mx-auto smm:mx-auto sm:mx-auto md:mx-auto ">
           {/* Language */}
-          <div className="relative">
+          <div className="relative language-dropdown">
             <div 
               onClick={() => setIsDropdownOpen(!isDropdownOpen)}
               className="flex items-center gap-2 cursor-pointer text-[#f1f1f1] hover:opacity-80 transition-opacity"
@@ -114,12 +133,40 @@ const Header = () => {
             <FaChevronDown className="w-4 h-4 customsm:w-3" />
           </div>
 
-          {/* Login/User - FIXED VERSION */}
+          {/* Login/User with Logout - FIXED VERSION */}
           <ClerkLoaded>
             {isUserLoaded && user ? (
-              <div className="flex items-center gap-2">
-                <span className="text-sm customsm:text-[11px] smm:text-[12px] sm:text-base font-semibold">{user.firstName}</span>
-                <FiUser className="w-4 h-4 customsm:w-3" />
+              <div className="relative user-menu-container">
+                <div 
+                  className="flex items-center gap-2 cursor-pointer"
+                  onClick={() => setIsUserMenuOpen(!isUserMenuOpen)}
+                >
+                  <span className="text-sm customsm:text-[11px] smm:text-[12px] sm:text-base font-semibold">{user.firstName}</span>
+                  <FiUser className="w-4 h-4 customsm:w-3" />
+                  <ChevronDown 
+                    className={`w-3 h-3 transition-transform ${isUserMenuOpen ? 'rotate-180' : ''}`} 
+                  />
+                </div>
+                
+                {/* User dropdown menu */}
+                {isUserMenuOpen && (
+                  <div className="absolute right-0 mt-2 w-40 bg-white rounded-md shadow-lg z-50">
+                    <div className="py-1">
+                      <Link href="/profile" className="block px-4 py-2 text-sm text-gray-700 hover:bg-[#7E33E0] hover:text-white">
+                        Profile
+                      </Link>
+                      <Link href="/orders" className="block px-4 py-2 text-sm text-gray-700 hover:bg-[#7E33E0] hover:text-white">
+                        My Orders
+                      </Link>
+                      <SignOutButton>
+                        <button className="w-full text-left px-4 py-2 text-sm text-gray-700 hover:bg-[#7E33E0] hover:text-white flex items-center">
+                          <LogOut className="w-4 h-4 mr-2" />
+                          Logout
+                        </button>
+                      </SignOutButton>
+                    </div>
+                  </div>
+                )}
               </div>
             ) : (
               <SignInButton>
