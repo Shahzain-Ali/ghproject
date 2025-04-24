@@ -1,13 +1,15 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
-// File: src/app/api/checkout/route.ts
+
 import { NextRequest, NextResponse } from "next/server";
 import Stripe from "stripe";
 
-// Initialize Stripe with your secret key
-const stripe = new Stripe(process.env.STRIPE_SECRET_KEY!);
-
 export async function POST(req: NextRequest) {
   try {
+    // Only initialize Stripe when the function is called
+    const stripe = new Stripe(process.env.STRIPE_SECRET_KEY || '', {
+      apiVersion: '2025-03-31.basil',
+    });
+
     const body = await req.json();
     const { items, shippingDetails } = body;
 
@@ -20,6 +22,7 @@ export async function POST(req: NextRequest) {
     }
 
     // Create line items for Stripe
+
     const lineItems = items.map((item: any) => ({
       price_data: {
         currency: 'gbp',
